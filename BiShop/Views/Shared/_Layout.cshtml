@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="thoi_trang_nam">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BILUXURY TỦ ĐỒ PHÁI MẠNH</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/images/luxury.png" />
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("~/Fontawesome/css")*@
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/style.css" type="text/css">
+
+    <style>
+
+        #movetop {
+            position: fixed;
+            bottom: 12px;
+            right: 15px;
+            z-index: 99;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: #fff;
+            width: 38px;
+            height: 38px;
+            background: #3a3535;
+            padding: 0;
+            line-height: 38px;
+            transition: 1s ease-out;
+            border-radius: 50%;
+        }
+
+        .header__top__links a:hover {
+            color: brown;
+        }
+
+        #movetop:hover {
+            background: #ff7315;
+        }
+
+        .footer__widget ul li a:hover {
+            color: red;
+        }
+
+        .header__menu ul li a:hover {
+            color: brown;
+        }
+
+        .header__menu ul li .dropdown li a:hover {
+            color: brown;
+        }
+
+        .breadcrumb__text h4 {
+            font-size: 3rem;
+        }
+
+        .breadcrumb__links a {
+            font-size: 1.5rem;
+        }
+
+        .breadcrumb__links span {
+            font-size: 1.5rem;
+        }
+
+        header .sticky {
+            background: #fff;
+        }
+        .header__nav__option a {
+            color: black;
+            border: none;
+        }
+
+        .header__nav__option a:hover {
+            color: brown;
+        }
+    </style>
+
+</head>
+<body>
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+                            <p>Miễn phí vận chuyển, hoàn trả trong 30 ngày hoặc đảm bảo hoàn lại tiền.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="header__top__links">
+                                    <a href="/Home/ProfileOfEmail?id=@Session["Id"]">  Chào, @(User.Identity.IsAuthenticated ? Session["Name"] : "Guest")</a>
+                                    <a href="/Home/SignOut">Đăng xuất</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="header__top__links">
+                                    <a href="/Home/Login">Đăng nhập</a>
+                                    <a href="/Home/Register">Đăng ký</a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="/Home/Index"><img class="img-fluid" src="~/assets/img/theme_hstatic_net-logo.png" width="118" height="61" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li class="active"><a href="/Home/Index">Trang chủ</a></li>
+                            <li>
+                                <a href="/Shop/Index">Shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="/Shop/Index/1">VEST SUIT</a></li>
+                                    <li><a href="/Shop/Index/2">Phụ kiện nam</a></li>
+                                    <li><a href="/Shop/Index/3">Áo nam</a></li>
+                                    <li><a href="/Shop/Index/5">Quần nam</a></li>
+                                    <li><a href="/Shop/Index/6">Đồ lót nam</a></li>
+                                    <li><a href="/Shop/Index/7">Quần áo thu đông</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/gioi-thieu">Giới thiệu</a>
+                            </li>
+                            <li>
+                                <a href="/Blogs/Index">Tin tức</a>
+                                <ul class="dropdown">
+                                    <li><a href="/Blogs/Index/1">Tin khuyến mãi</a></li>
+                                    <li><a href="/Blogs/Index/2">Tin phối đồ</a></li>
+                                    <li><a href="/Blogs/Index/3">Tin thời trang</a></li>
+                                    <li><a href="/Blogs/Index/4">Tin mới</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/lien-he">Liên hệ</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch" title="Tìm kiếm"><i class="fas fa-search"></i></a>
+                        @Html.Action("CartPartial", "Cart")
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+
+
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>@ViewBag.Title</h4>
+                        <div class="breadcrumb__links">
+                            <a href="/Home/Index">Home</a>
+                            <span>@ViewBag.Title</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @RenderBody()
+
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="~/assets/img/theme_hstatic_net-logo.png" alt=""></a>
+                        </div>
+                        <p>Biluxury ra đời để hoàn thành sứ mệnh đáp ứng được cho khách hàng sự hài lòng  về chất lượng sản phẩm,dịch vụ bán hàng và đặc biệt là một không gian thời trang được cập nhật xu hướng mới nhất trên thế giới.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Giới thiệu</h6>
+                        <ul>
+                            <li><a href="#">Thương hiệu</a></li>
+                            <li><a href="#">Báo chí nói về Biluxury</a></li>
+                            <li><a href="#">Mở đại lý</a></li>
+                            <li><a href="#">Hệ thống showroom toàn quốc</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Chính sách</h6>
+                        <ul>
+                            <li><a href="#">Chính sách Membership</a></li>
+                            <li><a href="#">Chính sách thanh toán</a></li>
+                            <li><a href="#">Hướng dẫn mua hàng</a></li>
+                            <li><a href="#">Chính sách đổi sản phẩm</a></li>
+                            <li><a href="#">Bảo mật thông tin cá nhân</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Tin tức</h6>
+                        <ul>
+                            <li><a href="#">Tư vấn phối đồ</a></li>
+                            <li><a href="#">Thế giới thời trang</a></li>
+                            <li><a href="#">Tin khuyến mại</a></li>
+                            <li><a href="#">Tin khai trương</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Đăng ký nhận tin</h6>
+                        <div class="footer__newslatter">
+                            <p>Hiện tại, Biluxury đang có rất nhiều ưu đãi dành cho đại lý mới mở, vui lòng để lại email tại đây và nhận nhưng ưu đãi mới nhất!</p>
+                            <form action="#">
+                                <input type="text" placeholder="Email của bạn">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>
+                            Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                            Đề tài:  Xây dựng website bán hàng thời trang BI LUXURY  <i class="fa fa-heart-o"
+                                                                                        aria-hidden="true"></i> - <a href="#" target="_blank">Lê Văn Nam</a>
+                        </p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button id="movetop" title="Lên đầu trang">
+                    <span class="fa fa-angle-double-up"></span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form action="/Search/SeachInClient" method="get" enctype="multipart/form-data" class="search-model-form">
+                <input type="text" name="search" id="search-input" placeholder="Bạn muốn tìm....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Distrist.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <!-- move top -->
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        $(document).ready(function () {
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 20) {
+                    $('#movetop').fadeIn();
+                } else {
+                    $('#movetop').fadeOut();
+                }
+            });
+
+            $('#movetop').click(function () {
+                $('html, body').animate({ scrollTop: 0 }, 500);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 20) {
+                    $('header').addClass("sticky");
+                } else {
+                    $('header').removeClass("sticky");
+                }
+            });
+        });
+    </script>
+
+    <!-- /move top -->
+    @*<script src="~/assets/js/jquery-3.3.1.min.js"></script>
+        <script src="~/assets/js/bootstrap.min.js"></script>*@
+    <script src="~/assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/assets/js/jquery.nicescroll.min.js"></script>
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/js/jquery.countdown.min.js"></script>
+    <script src="~/assets/js/jquery.slicknav.js"></script>
+    <script src="~/assets/js/mixitup.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/main.js"></script>
+</body>
+</html>

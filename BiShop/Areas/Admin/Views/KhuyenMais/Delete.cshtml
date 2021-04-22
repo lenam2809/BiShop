@@ -1,0 +1,31 @@
+﻿@model BiShop.Models.KhuyenMai
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h3>Bạn có chắc chán muốn xóa?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NoiDungKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoiDungKM)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+        </div>
+    }
+</div>
+<div>
+    <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "KhuyenMais")"><i class="fas fa-backward"></i> Trở về</a>
+</div>

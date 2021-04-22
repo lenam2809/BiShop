@@ -1,0 +1,74 @@
+﻿@model PagedList.IPagedList<BiShop.Models.TinTuc>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .page-item > a {
+        position: relative;
+        display: block;
+        padding: .5rem .75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: black;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        text-decoration: none;
+        border-radius: 45%;
+    }
+
+        .page-item > a:hover {
+            border: 1px solid black;
+        }
+
+        .page-item > a:active {
+            border: 1px solid black;
+        }
+
+        .center {
+            justify-content: center;
+            margin-bottom: 15px;
+            margin-top: -25px;
+        }
+
+    .page-item {
+        padding: 0 5px;
+    }
+</style>
+
+<!-- Blog Section Begin -->
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="@item.LinkAnh"></div>
+                        <div class="blog__item__text">
+                            <span><img src="~/assets/img/icon/calendar.png" alt=""> @item.NgayTao</span>
+                            <h5>@item.TieuDe</h5>
+                            <a href="@Url.Action("BlogDetail", "Blogs", new { id = item.Id })">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+
+@Html.PagedListPager(Model,
+    page => Url.Action("Index", new { page }),
+    new PagedListRenderOptions
+    {
+        DisplayLinkToIndividualPages = true,
+        DisplayPageCountAndCurrentLocation = false,
+        MaximumPageNumbersToDisplay = 10,
+        ContainerDivClasses = new string[] { "pagination", "center" },
+        UlElementClasses = new string[] { "pagination" },
+        LiElementClasses = new string[] { "page-item" },
+    })

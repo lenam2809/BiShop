@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Meta Responsive tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="~/Areas/assets/css/bootstrap.min.css">
+    <!--Custom style.css-->
+    <link rel="stylesheet" href="~/Areas/assets/css/quicksand.css">
+    <link rel="stylesheet" href="~/Areas/assets/css/style.css">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="~/Areas/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Areas/assets/css/fontawesome.css">   
+
+    <title>Đăng nhập - BILUXURY TỦ ĐỒ PHÁI MẠNH</title>
+
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="login-body">
+
+    <!--Login Wrapper-->
+
+    <div class="container-fluid login-wrapper">
+        <div class="login-box">
+            <h1 class="text-center mb-5"><i class="far fa-gem"></i> BiLuxury</h1>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-12 login-box-info">
+                    <h3 class="mb-4">Tầm nhìn</h3>
+                    <p class="mb-4">Trở thành thương hiệu thời trang nam hàng đầu được giới trẻ tin dùng</p>
+                    <p class="text-center"><a href="/Home/Register" class="btn btn-light">Đăng ký</a></p>
+                </div>
+                <div class="col-md-6 col-sm-6 col-12 login-box-form p-4">
+                    <h3 class="mb-2">Đăng nhập</h3>
+                    <small id="title-login" class="text-muted bc-description">Đăng nhập bằng thông tin cá nhân của bạn</small>
+                    
+                    <form action="/Home/Login" returnUrl="@Request.QueryString["ReturnUrl"]" enctype="multipart/form-data" method="post" class="mt-2">
+                        @Html.ValidationMessage("test")
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input id="user" type="text" class="form-control mt-0" placeholder="Tài khoản" name="email" aria-label="Username" aria-describedby="basic-addon1" required>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <input id="pass" type="password" class="form-control mt-0" placeholder="Mật khẩu" name="password" aria-label="Password" aria-describedby="basic-addon1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <button id="btnLogin" type="submit" class="btn btn-theme btn-block p-2 mb-1">Đăng nhập</button>
+                            <a href="#">
+                                <small class="text-theme"><strong>Quên mật khẩu?</strong></small>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Login Wrapper-->
+    <!-- Page JavaScript Files-->
+    @*<script src="~/Areas/assets/js/jquery.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    @*<script src="~/Areas/assets/js/jquery-1.12.4.min.js"></script>*@
+    <!--Popper JS-->
+    <script src="~/Areas/assets/js/popper.min.js"></script>
+    <!--Bootstrap-->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Areas/assets/js/bootstrap.min.js"></script>*@
+
+    <!--Custom Js Script-->
+    <script src="~/Areas/assets/js/custom.js"></script>
+    <!--Custom Js Script-->
+
+</body>
+</html>
+

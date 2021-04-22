@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BiShop.Models.KhuyenMai>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<a title="Thêm mới" class="btn btn-info" style="margin-top: 15px;" href="@Url.Action("Create", "KhuyenMais")"><i class="fas fa-plus-circle"></i> Thêm</a>
+
+<div class="table-responsive">
+    <table id="example" class="table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NoiDungKM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaKM)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDungKM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaKM)
+                </td>
+                <td>
+                    <div style="display: flex;">
+                        <a title="Chỉnh sửa" class="btn btn-success" href="@Url.Action("Edit", "KhuyenMais", new { id = item.Id })"><i class="fas fa-edit"></i></a>&nbsp;
+                        <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "KhuyenMais", new { id = item.Id })"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

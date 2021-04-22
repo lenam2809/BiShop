@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BiShop.Models.LoaiTin>
+
+@{
+    ViewBag.Title = "Danh sách loại tin";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<a title="Thêm mới" class="btn btn-info" style="margin-top: 15px;" href="@Url.Action("Create", "LoaiTins")"><i class="fas fa-plus-circle"></i> Thêm loại tin</a>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenLoaiTin)
+        </th>
+        <th>Hoạt động</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenLoaiTin)
+            </td>
+            <td>
+                <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "LoaiTins", new { id = item.Id })"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>

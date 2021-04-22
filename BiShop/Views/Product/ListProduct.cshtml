@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ds = ViewBag.dsSanPham;
+}
+
+<section class="w3l-ecommerce-main">
+    <!-- /products-->
+    <div class="ecom-contenthny py-5">
+        <div class="container py-lg-5">
+            <h3 class="hny-title mb-0 text-center">Đến với <span>Chúng tôi</span></h3>
+            <p class="text-center">Tất cả đều dành cho bạn</p>
+            <!-- /row-->
+            <div class="ecom-products-grids row mt-lg-5 mt-3">
+                @foreach (var item in ds)
+                {
+                    <div class="col-lg-3 col-6 product-incfhny mt-4">
+                        <div class="product-grid2 transmitv">
+                            <div class="product-image2">
+                                <a href="#">
+                                    <img class="pic-1 img-fluid" style="height: 355px;" width="255" src="@item.LinkAnh">
+                                    <img class="pic-2 img-fluid" src="@item.LinkAnh">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="@Url.Action("DetailProduct", "Product", new { id = item.MaSP })" data-tip="Quick View"><span class="fa fa-eye"></span></a></li>
+                                </ul>
+                                <div class="transmitv single-item">
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="cmd" value="_cart">
+                                        <input type="hidden" name="add" value="1">
+                                        <input type="hidden" name="transmitv_item" value="@item.TenSP">
+                                        <input type="hidden" name="amount" value="@item.Gia">
+                                        <button type="submit" class="transmitv-cart ptransmitv-cart add-to-cart">
+                                            Thêm vào giỏ hàng
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">@item.TenSP </a></h3>
+                                @{
+                                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
+                                    var gia = String.Format(info, "{0:c3}", @item.Gia);
+                                    var giakm = String.Format(info, "{0:c3}", item.Gia * 70 / 100);
+                                }
+                                <span class="price"><del>@gia</del>@giakm</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- //row-->
+        </div>
+    </div>
+</section>
+

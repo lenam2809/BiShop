@@ -1,0 +1,326 @@
+﻿
+
+@{
+    ViewBag.Title = "Trang chủ";
+    var category = ViewBag.category;
+    var spmois = ViewBag.top4product;
+    var blogs = ViewBag.top3tintuc;
+    var top4banchay = ViewBag.top4banchay;
+    var top4sales = ViewBag.top4sales;
+}
+
+<style>
+
+    .breadcrumb-option {
+        display: none;
+    }
+
+    .hero__text > a:hover {
+        box-shadow: 5px 10px brown;
+    }
+
+    .product__item__pic .product__hover li img:hover {
+        background-color: red;
+    }
+    .hero__social a:hover {
+        color: mediumvioletred;
+    }
+</style>
+
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="hero__slider owl-carousel">
+        <div class="hero__items set-bg" data-setbg="/assets/img/hero/hero-1.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-7 col-md-8">
+                        <div class="hero__text">
+                            <h6>Bộ sưu tập thu - đông</h6>
+                            <h2>Áo thun dài tay 2020</h2>
+                            <p>
+                                Áo thun dài tay đa dạng mẫu và màu sắc, thiết kế cổ tròn, cổ tim, Biluxury sử dụng chất liệu cotton thấm hút mồ hôi, co giãn thoải mái, chuẩn forrm nam giới Việt, khả năng giữ ấm cơ thể tốt.
+                            </p>
+                            <a href="/Shop/Index/3" class="primary-btn">Xem ngay <span class="arrow_right"></span></a>
+                            <div class="hero__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__items set-bg" data-setbg="/assets/img/hero/hero-2.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-7 col-md-8">
+                        <div class="hero__text">
+                            <h6>Bộ sưu tập mùa hè</h6>
+                            <h2>Áo sơ mi 2021</h2>
+                            <p>
+                                Áo sơ mi nam là “item” không thể thiếu trong tủ đồ của phái mạnh hiện nay. Những chiếc áo sơ mi nam thường có thiết kế đa dạng từ mỏng nhẹ, thoải mái cho đến thanh lịch, sang trọng. Áo sơ mi được nam giới lựa chọn để diện vào những dịp khác nhau như: Đám cưới, dự sự kiện,... hoặc đi chơi, đi du lịch,...
+                            </p>
+                            <a href="/Shop/Index/3" class="primary-btn">Xem ngay <span class="arrow_right"></span></a>
+                            <div class="hero__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Banner Section Begin -->
+<section class="banner spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-4">
+                <div class="banner__item">
+                    <div class="banner__item__pic">
+                        <img src="~/Upload/s9.jpg" width="400" />
+                    </div>
+                    <div class="banner__item__text">
+                        <h2>Thời trang hè 2021</h2>
+                        <a href="/Shop/Index/3">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="banner__item banner__item--middle">
+                    <div class="banner__item__pic">
+                        <img src="~/Upload/bv3.jpg" />
+                    </div>
+                    <div class="banner__item__text">
+                        <h2>Vest quý ông</h2>
+                        <a href="/Shop/Index/1">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="banner__item banner__item--last">
+                    <div class="banner__item__pic">
+                        <img src="/assets/img/banner/banner-3.jpg" alt="">
+                    </div>
+                    <div class="banner__item__text">
+                        <h2>Phụ kiện</h2>
+                        <a href="/Shop/Index/2">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="filter__controls">
+                    <li class="active" data-filter="*">Sản phẩm nổi bật</li>
+                    <li data-filter=".sales">Bán chạy nhất</li>
+                    <li data-filter=".new-arrivals">Sản phẩm mới</li>
+                    <li data-filter=".hot-sales">Đang giảm giá</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row product__filter">
+            <!--Sản phẩm mới-->
+            @foreach (var spmoi in spmois)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@spmoi.LinkAnh">
+                            <span class="label">New</span>
+                            <ul class="product__hover">
+                                <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = spmoi.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>@spmoi.TenSP</h6>
+                            <a href="@Url.Action("ShopDetail", "Shop", new { id = spmoi.MaSP })" class="add-cart">Xem thêm</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            @if (spmoi.Gia != null)
+                            {
+                                var gia = string.Format("{0}.000", spmoi.Gia.ToString());
+                                <h5>@gia &#8363;</h5>
+                            }
+                            else
+                            {
+                                <h5>0 &#8363;</h5>
+                            }
+                            <div class="product__color__select">
+                                <label for="pc-1">
+                                    <input type="radio" id="pc-1">
+                                </label>
+                                <label class="active black" for="pc-2">
+                                    <input type="radio" id="pc-2">
+                                </label>
+                                <label class="grey" for="pc-3">
+                                    <input type="radio" id="pc-3">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!--Bán chạy nhất-->
+            @foreach (var banchay in top4banchay)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="@banchay.LinkAnh">
+                            <ul class="product__hover">
+                                <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = banchay.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>@banchay.TenSP</h6>
+                            <a href="@Url.Action("ShopDetail", "Shop", new { id = banchay.MaSP })" class="add-cart">Xem thêm</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            @if (banchay.Gia != null)
+                            {
+                                var gia = string.Format("{0}.000", banchay.Gia.ToString());
+                                <h5>@gia &#8363;</h5>
+                            }
+                            else
+                            {
+                                <h5>0 &#8363;</h5>
+                            }
+                            <div class="product__color__select">
+                                <label for="pc-4">
+                                    <input type="radio" id="pc-4">
+                                </label>
+                                <label class="active black" for="pc-5">
+                                    <input type="radio" id="pc-5">
+                                </label>
+                                <label class="grey" for="pc-6">
+                                    <input type="radio" id="pc-6">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @foreach (var sale in top4sales)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix sales">
+                    <div class="product__item sale">
+                        <div class="product__item__pic set-bg" data-setbg="@sale.LinkAnh">
+                            <span class="label">Sale</span>
+                            <ul class="product__hover">
+                                <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = sale.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>@sale.TenSP</h6>
+                            <a href="@Url.Action("ShopDetail", "Shop", new { id = sale.MaSP })" class="add-cart"> Xem thêm</a>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            @{
+                                var gia = string.Format("{0}.000", sale.Gia.ToString());
+                            }
+                            <h5>@gia &#8363;</h5>
+                            <div class="product__color__select">
+                                <label for="pc-7">
+                                    <input type="radio" id="pc-7">
+                                </label>
+                                <label class="active black" for="pc-8">
+                                    <input type="radio" id="pc-8">
+                                </label>
+                                <label class="grey" for="pc-9">
+                                    <input type="radio" id="pc-9">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+<!-- Instagram Section Begin -->
+<section class="instagram spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="instagram__pic">
+                    <div class="instagram__pic__item set-bg" data-setbg="/assets/img/instagram/instagram-1.jpg"></div>
+                    <div class="instagram__pic__item set-bg" data-setbg="/assets/img/instagram/instagram-2.jpg"></div>
+                    <div class="instagram__pic__item set-bg" data-setbg="/assets/img/instagram/instagram-3.jpg"></div>
+                    <div class="instagram__pic__item set-bg" data-setbg="/assets/img/instagram/instagram-4.jpg"></div>
+                    <div class="instagram__pic__item set-bg" data-setbg="/assets/img/instagram/instagram-5.jpg"></div>
+                    <div class="instagram__pic__item set-bg" data-setbg="/assets/img/instagram/instagram-6.jpg"></div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="instagram__text">
+                    <h2>Biluxury</h2>
+                    <p>
+                        Biluxury là 1 gia đình đoàn kết, sáng tạo, nỗ lực tạo giá trị mới cho khách hàng.
+                    </p>
+                    <h3>#Thoi_trang_nam</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Instagram Section End -->
+<!-- Latest Blog Section Begin -->
+<section class="latest spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Tin mới nhất</span>
+                    <h2>Xu hướng thời trang</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in blogs)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="@item.LinkAnh"></div>
+                        <div class="blog__item__text">
+                            <span><img src="/assets/img/icon/calendar.png" alt=""> 16 February 2020</span>
+                            <h5>@item.TieuDe</h5>
+                            <a href="#">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+<!-- Latest Blog Section End -->

@@ -1,0 +1,90 @@
+﻿@model BiShop.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Xóa khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h3>Bạn chắc chắn muốn xóa khách hàng này?</h3>
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenKH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenKH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.Photo)" alt="@Html.DisplayFor(model => model.TenKH)" width="200" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.Email)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    }
+
+    <div>
+        <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "KHACHHANGs")"><i class="fas fa-backward"></i> Trở về</a>
+    </div>
+</div>

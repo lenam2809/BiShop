@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BiShop.Models.NhapSanPham>
+
+@{
+    ViewBag.Title = "Danh sách thông tin nhập sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<a title="Thêm mới" class="btn btn-info" style="margin-top: 15px;" href="@Url.Action("Create", "NhapSanPhams")"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaSP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayNhap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaNhap)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayNhap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaNhap)
+            </td>
+            <td>
+                <div style="display: flex;">
+                    <a title="Chỉnh sửa" class="btn btn-success" href="@Url.Action("Edit", "NhapSanPhams", new { id = item.Id })"><i class="fas fa-edit"></i></a>&nbsp;
+                    <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "NhapSanPhams", new { id = item.Id })"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

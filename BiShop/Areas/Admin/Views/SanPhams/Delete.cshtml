@@ -1,0 +1,73 @@
+﻿@model BiShop.Models.SanPham
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<h3>Bạn chắc chắn muốn xóa sản phẩm này?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChatLieu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChatLieu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KieuDang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KieuDang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkAnh)
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.LinkAnh)" alt="@Html.DisplayFor(model => model.TenSP)" width="250" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+        </div>
+    }
+    <div>
+        <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "SanPhams")"><i class="fas fa-backward"></i> Trở về</a>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var donhang = ViewBag.donhang;
+}
+<style>
+    .checkout__input input {
+        color: black;
+    }
+</style>
+
+
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <h6 class="checkout__title">Tài khoản của bạn</h6>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Họ và tên</p>
+                                <input type="text" name="name" value="@ViewBag.TenKH" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Ngày sinh</p>
+                                <input type="text" name="name" value="@ViewBag.NgaySinh" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Phone</p>
+                                <input type="text" name="phone" value="@ViewBag.Phone" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Email</p>
+                                <input type="email" name="email" value="@ViewBag.Email" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Địa chỉ</p>
+                                <input type="text" name="diachi" value="@ViewBag.DiaChi" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Giới tính</p>
+                                <input type="text" name="gioitinh" value="@ViewBag.GioiTinh" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="@Url.Action("EditProfile", "Home", new { id = ViewBag.MaKH })" class="btn btn-warning">Chỉnh sửa</a>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="checkout__order">
+                        <h4 class="order__title">Lịch sử giao dịch</h4>
+                        <div class="table-responsive">
+                            @if (donhang != null)
+                            {
+                                <table id="example" class="table table-striped table-bordered">
+                                    <tr>
+                                        <th>
+                                            Tên sản phẩm
+                                        </th>
+                                        <th>
+                                            Số lượng đã mua
+                                        </th>
+                                        <th>
+                                            Giá
+                                        </th>
+                                        <th>
+                                            Ngày đặt hàng
+                                        </th>
+                                    </tr>
+                                    @foreach (var item in donhang)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.TenSP
+                                            </td>
+                                            <td>
+                                                @item.SoLuong
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var gia = string.Format("{0}.000", item.Gia.ToString());
+
+                                                }
+                                                @gia&#8363;
+                                            </td>
+                                            <td>
+                                                @item.NgayDH
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                            else
+                            {
+                                <p>Bạn chưa có đơn hàng nào!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->

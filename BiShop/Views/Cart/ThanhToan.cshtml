@@ -1,0 +1,118 @@
+﻿@model IEnumerable<BiShop.Models.Cart>
+
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ship = ViewBag.ship;
+}
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form action="/Cart/ThanhToan" method="post">
+                    @Html.ValidationMessage("test")
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6">
+                            <h6 class="checkout__title">Chi tiết hóa đơn</h6>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="checkout__input">
+                                        <p>Họ và tên<span>*</span></p>
+                                        <input type="text" name="name" value="@ViewBag.tenkh">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" name="phone" value="@ViewBag.phone">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="email" name="email" value="@ViewBag.email" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input row">
+                                <div class="col-lg-12">
+                                    <div class="checkout__input">
+                                        <p>Địa chỉ<span>*</span></p>
+                                        <input type="text" name="diachi" value="@ViewBag.diachi">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-6">
+                            <div class="checkout__order">
+                                <h4 class="order__title">Đơn hàng của bạn</h4>
+                                <div class="checkout__order__products">Sản phẩm <span>Tổng</span></div>
+                                @foreach (var item in Model)
+                                {
+                                    <ul class="checkout__total__products">
+                                        <li>@item.SanPham.TenSP <span>@item.SanPham.Gia</span></li>
+                                    </ul>
+                                }
+                                <ul class="checkout__total__all">
+                                    <li>Tổng <span>$750.99</span></li>
+                                </ul>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h6>Phương thức vận chuyển</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="nice-select" aria-label="Default select example">
+                                            @foreach (var item in ship)
+                                            {
+                                                <option value="@item.Id" selected>@item.ShipName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col">
+                                        <button id="btnThanhToan" style="width: 100%;" type="button" class="btn btn-outline-success">Thanh toán</button>
+                                    </div>
+                                    <div class="col">
+                                        <button style="width: 100%;" type="button" class="btn btn-outline-success"><i class="fab fa-paypal"></i> Paypal</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="container text-center">
+                    <p style="color: red;"><i class="fas fa-exclamation-triangle"></i> Bạn phải đăng nhập trước khi thanh toán.</p>
+                    <a class="btn btn-outline-warning" href="/Home/Login">Đăng nhập</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container">
+        <a href="@Url.Action("Index", "Cart")" class="btn btn-info">Quay lại giỏ hàng</a>
+    </div>
+</section>
+
+
+<!-- Checkout Section End -->
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnThanhToan").click(function () {
+                alert("Thanh toán thành công!");
+            });
+        });
+    </script>
+}

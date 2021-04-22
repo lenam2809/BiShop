@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BiShop.Models.CTDonHang>
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SanPham.TenSP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonHang.DiaChiShip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SanPham.TenSP)              
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonHang.DiaChiShip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GhiChu)               
+            </td>
+            <td>
+                <div style="display: flex;">
+                    <a title="Chỉnh sửa" class="btn btn-success" href="@Url.Action("Edit", "CTDonHangs", new { id1 = item.MaDH, id2 = item.MaSP })"><i class="fas fa-edit"></i></a>&nbsp;
+                    <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "CTDonHangs", new { id1 = item.MaDH, id2 = item.MaSP })"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<div>
+    <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "DonHangs")"><i class="fas fa-backward"></i> Trở về</a>
+</div>

@@ -1,0 +1,204 @@
+﻿
+<h5 class="mb-3"><strong>Thống kê ngày</strong></h5>
+
+<!--Dashboard widget-->
+<div class="mt-1 mb-3 button-container">
+    <div class="row pl-0">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+            <div class="bg-white border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme">
+                        <i class="fas fa-money-check-alt"></i>
+                    </div>
+                    <div class="media-body pl-2">                       
+                        <h3 class="mt-0 mb-0"><strong>@ViewBag.TongDoanhThuTrongNgay</strong></h3>
+                        <p><small class="text-muted bc-description">Tổng doanh thu</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+            <div class="bg-white border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-danger">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong>@ViewBag.KhachHangMoiTrongNgay</strong></h3>
+                        <p><small class="text-muted bc-description">Khách hàng mới</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+            <div class="bg-theme border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-white">
+                        <i class="fa fa-tags text-theme"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong>@ViewBag.SanPhamXuatTrongNgay</strong></h3>
+                        <p><small class="bc-description text-white">Sản phẩm xuất thành công</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Dashboard widget-->
+
+<div class="row mt-3">
+    <div class="col-sm-6">
+        <!--Jvector world map-->
+        <div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
+            <h6 class="mb-3">Biểu đồ doanh thu so với chi phí trong tuần</h6><hr>
+            <div class="ct-chart" id="lineChartChartist" style="height: 350px;"></div>
+        </div>
+        <!--/Jvector world map-->
+
+    </div>
+
+
+    <div class="col-sm-6">
+        <!--Revenue Graph-->
+        <div class="mt-1 mb-3 button-container bg-white border shadow-sm p-3">
+            <h6 class="mb-3">Biểu đồ doanh thu so với chi phí trong năm</h6><hr>
+
+            <div class="ct-chart" id="costRevenue" style="height: 350px;"></div>
+
+        </div>
+        <!--/Revenue Graph-->
+    </div>
+</div>
+
+<!--Chart Section-->
+<div class="mt-1 mb-3 p-3 button-container bg-white shadow-sm border">
+    <h6>Phân tích tổng quan trong năm 2021 và biểu đồ doanh thu qua các năm</h6><hr>
+    <div class="row mb-3">
+        <div class="col-sm-4 ol-12">
+            <h1 class="text-success">1560</h1>
+            <h5>Khách hàng mới</h5>
+        </div>
+        <div class="col-sm-4 ol-12 text-center">
+            <h1 class="text-theme">1300</h1>
+            <h5>Đơn hàng đi</h5>
+        </div>
+        <div class="col-sm-4 ol-12 text-right">
+            <h1 class="text-danger">$5545</h1>
+            <h5>Doanh thu</h5>
+        </div>
+    </div>
+
+    <canvas id="orderRevenue" class="orderRevenue pt-1" height="100px"></canvas>
+</div>
+<!--Chart Section-->
+
+@section chart {
+    <script>
+        if ($("#orderRevenue").length) {
+            var ctx = document.getElementById("orderRevenue");
+            var test = [130, 74, 6, 39, 20, 85, 7];
+            var revChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["2014", "2015", "2016", "2017", "2018", "2019", "2020"],
+                    datasets: [
+                        {
+                            label: "Khách hàng mới",
+                            borderColor: "rgb(59, 224, 40)",
+                            borderWidth: "3",
+                            backgroundColor: "rgb(59, 224, 40, 0.8)",
+                            data: test,
+                        },
+                        {
+                            label: "Đơn hàng đi",
+                            borderColor: "rgb(30, 44, 199)",
+                            borderWidth: "3",
+                            backgroundColor: "rgba(30, 44, 199, 0.8)",
+                            data: [82, 23, 66, 9, 119, 6, 9],
+                        },
+                        {
+                            label: "Doanh thu",
+                            borderColor: "rgb(245, 81, 66)",
+                            borderWidth: "3",
+                            backgroundColor: "rgba(245, 81, 66, 0.8)",
+                            data: [8, 23, 36, 59, 119, 226, 309],
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+
+                    },
+                    legend: {
+                        display: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    }
+
+                }
+            });
+        }
+    </script>
+    <script>
+        if ($("#lineChartChartist").length) {
+            new Chartist.Line('.ct-chart', {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sun'],
+                series: [
+                    {
+                        labels: 'Working week days',
+                        data: [12, 9, 7, 8, 5, 10],
+                    },
+                    {
+                        labels: 'Working week days',
+                        data: [12, 7, 8, 5, 8, 16],
+                    },
+                ]
+            }, {
+                fullWidth: true,
+                chartPadding: {
+                    right: 40
+                }
+            });
+        }
+    </script>
+    <script>
+        //Dashboard revenue vs cost
+        if ($("#costRevenue").length) {
+            var data = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                series: [
+                    [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
+                    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+                ]
+            };
+
+            var options = {
+                seriesBarDistance: 10
+            };
+
+            var responsiveOptions = [
+                ['screen and (max-width: 640px)', {
+                    seriesBarDistance: 5,
+                    axisX: {
+                        labelInterpolationFnc: function (value) {
+                            return value[0];
+                        }
+                    }
+                }]
+            ];
+
+            new Chartist.Bar('#costRevenue', data, options, responsiveOptions);
+        }
+    </script>
+
+}
+
+
+
+

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BiShop.Models.Review>
+
+@{
+    ViewBag.Title = "Danh sách review từ khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NoiDung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayTao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KHACHHANG.TenKH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SanPham.TenSP)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoiDung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayTao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KHACHHANG.TenKH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+        </td>
+        <td>
+            <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "NhapSanPhams", new { id1 = item.MaKH, id2 = item.MaSP })"><i class="fas fa-trash-alt"></i></a>
+        </td>
+    </tr>
+}
+
+</table>

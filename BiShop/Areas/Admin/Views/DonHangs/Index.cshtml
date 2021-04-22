@@ -1,0 +1,122 @@
+﻿@model IEnumerable<BiShop.Models.DonHang>
+
+
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ctdh = ViewBag.ctdh;
+}
+
+
+<div class="mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
+    <!--Order Listing-->
+    <div class="product-list">
+
+        <div class="row border-bottom mb-4">
+            <div class="col-sm-8 pt-2"><h6 class="mb-4 bc-header">Danh sách đơn hàng</h6></div>
+            <div class="col-sm-4 text-right pb-3">
+                <button type="button" class="btn btn-danger icon-round shadow pull-right">
+                    <i class="fas fa-trash"></i>
+                </button>
+
+                <div class="pull-right mr-3 btn-order-bulk">
+                    <select class="shadow bg-secondary bulk-actions">
+                        <option value="0" data-display="<span class='text-white'><b>Tất cả đơn hàng</b></span>">Tất cả đơn hàng</option>
+                        <option value="1">Đang chờ xử lý</option>
+                        <option value="2">Đã hủy</option>
+                        <option value="4">Đã giao hàng</option>
+                    </select>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="table-responsive product-list">
+            <table class="table table-bordered table-striped mt-0" id="productList">
+                <thead>
+                    <tr>
+                        <th style="width: 10px;" class="p-0 pr-4 align-middle">
+                            <div class="form-check-box cta">
+                                <span class="color1">
+                                    <input type="checkbox" id="orderAll">
+                                    <label for="orderAll"></label>
+                                </span>
+                            </div>
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.KHACHHANG.TenKH)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </th>
+                        <th>
+
+                            @Html.DisplayNameFor(model => model.NgayDH)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DiaChiShip)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ship.ShipName)
+                        </th>
+                        <th>Hoạt đông</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td style="width: 10px;" class="p-0 pr-1 align-middle">
+                            <div class="form-check-box cta">
+                                <span class="color1">
+                                    <input type="checkbox" id="order1">
+                                    <label for="order1"></label>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.KHACHHANG.TenKH)
+                        </td>
+                        @helper WelcomeMessage(string trangthai)
+                        {
+                            if (trangthai == "Đang chờ xử lý")
+                            {
+                                <td class="align-middle"><span class="badge badge-warning">@trangthai</span></td>
+                            }
+                            if (trangthai.Equals("Đã hủy"))
+                            {
+                                <td class="align-middle"><span class="badge badge-danger">@trangthai</span></td>
+                            }
+                            if (trangthai.Equals("Đã giao hàng"))
+                            {
+                                <td class="align-middle"><span class="badge badge-success">@trangthai</span></td>
+                            }
+                        }
+                        @{
+                            var trangthai = item.IsActive;
+                        }
+                        @WelcomeMessage(trangthai)
+                        <td class="align-middle">@Html.DisplayFor(modelItem => item.NgayDH)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DiaChiShip)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Ship.ShipName)</td>
+                        <td>
+                            <div style="display: flex;">
+                                <a title="Chi tiết đơn hàng" class="btn btn-primary" href="@Url.Action("Details", "DonHangs", new { id = item.MaDH })"><i class="fa fa-info-circle"></i></a>&nbsp;
+                                <a title="Chỉnh sửa" class="btn btn-success" href="@Url.Action("Edit", "DonHangs", new { id = item.MaDH })"><i class="fas fa-edit"></i></a>&nbsp;
+                                @*<a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "DonHangs", new { id = item.MaDH })"><i class="fas fa-trash-alt"></i></a>*@
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-right">
+                <button class="btn btn-outline-theme"><i class="fa fa-eye"></i> Xem đầy đủ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

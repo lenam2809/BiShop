@@ -1,0 +1,197 @@
+﻿@model PagedList.IPagedList<BiShop.Models.SanPham>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Shop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lsp = ViewBag.lsp;
+    var nccs = ViewBag.ncc;
+}
+
+<style>
+    .page-item > a {
+        position: relative;
+        display: block;
+        padding: .5rem .75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: black;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        text-decoration: none;
+        border-radius: 45%;
+    }
+
+        .page-item > a:hover {
+            border: 1px solid black;
+        }
+
+        .page-item > a:active {
+            border: 1px solid black;
+        }
+
+    .center {
+        justify-content: center;
+        margin-bottom: 15px;
+        margin-top: -25px;
+    }
+
+    .page-item {
+        padding: 0 5px;
+    }
+</style>
+
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__search">
+                        <form action="#">
+                            <input type="text" placeholder="Tìm...">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseOne">Danh mục</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__categories">
+                                            <ul class="nice-scroll">
+                                                @foreach (var item in lsp)
+                                                {
+                                                    <li><a href="@Url.Action("Index","Shop", new { id = item.Id })">@item.TenLoai (20)</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseTwo">Hãng</a>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__brand">
+                                            <ul>
+                                                @foreach (var ncc in nccs)
+                                                {
+                                                    <li><a href="#">@ncc.TenNCC</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseThree">Giá</a>
+                                </div>
+                                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__price">
+                                            <ul>
+                                                <li><a href="#">0 &#8363; - 100.000 &#8363;</a></li>
+                                                <li><a href="#">100.000 &#8363; - 200.000 &#8363;</a></li>
+                                                <li><a href="#">200.000 &#8363; - 300.000 &#8363;</a></li>
+                                                <li><a href="#">300.000 &#8363;- 500.000 &#8363;</a></li>
+                                                <li><a href="#">500.000 &#8363; - 1.000.000 &#8363;</a></li>
+                                                <li><a href="#">1.000.000+ &#8363;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
+                                </div>
+                                <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__tags">
+                                            @foreach (var item in lsp)
+                                            {
+                                                <a href="@Url.Action("Index","Shop", new { id = item.Id })">#@item.TenLoai</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Hiển thị 1–12 trong 126 kết quả</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__right">
+                                <p>Sắp xếp theo giá:</p>
+                                <select id="sort-price">
+                                    <option value="low">thấp đến cao</option>
+                                    <option value="high">cao đến thấp</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <input id="masp" style="display: none" value="@item.MaSP" />
+                                <div class="product__item__pic set-bg" data-setbg="@item.LinkAnh">
+                                    <ul class="product__hover">
+                                        <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = item.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>@item.TenSP</h6>
+                                    <a href="@Url.Action("ShopDetail", "Shop", new { id = item.MaSP })" class="add-cart">Xem thêm</a>
+                                    <div class="rating">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    @{
+                                        var gia = string.Format("{0}.000", item.Gia.ToString());
+                                    }
+                                    <h5>@gia &#8363;</h5>
+                                    <div class="product__color__select">
+                                        <span>122</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @Html.PagedListPager(Model,
+                page => Url.Action("Index", new { page }),
+                new PagedListRenderOptions
+                {
+                    DisplayLinkToIndividualPages = true,
+                    DisplayPageCountAndCurrentLocation = false,
+                    MaximumPageNumbersToDisplay = 10,
+                    ContainerDivClasses = new string[] { "pagination", "center" },
+                    UlElementClasses = new string[] { "pagination" },
+                    LiElementClasses = new string[] { "page-item" },
+                })
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->
+
