@@ -34,6 +34,12 @@ namespace BiShop.Areas.Admin
             );
 
             context.MapRoute(
+                "Admin_login",
+                "Admin/{controller}/{action}/{id}",
+                new { Controller = "AdminManagement", action = "LoginAdmin", id = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { Controller = "AdminManagement", action = "Index", id = UrlParameter.Optional }

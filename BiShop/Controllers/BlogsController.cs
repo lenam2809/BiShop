@@ -10,15 +10,14 @@ namespace BiShop.Controllers
 {
     public class BlogsController : Controller
     {
-        DbBiLuxuryEntities data = new DbBiLuxuryEntities();
         // GET: Blogs
         public ActionResult Index(int? id,  int? page, int pageSize = 9)
         {
-            var dsnews = data.TinTucs.ToList(); ;
+            var dsnews = Blogs.GetAll();
             if (page == null) page = 1;
             if (id != null)
             {
-                dsnews = data.TinTucs.Where(x => x.MaLoaiTin == id).ToList();
+                dsnews = Blogs.GetTinTucByMaLoaiTin(id);
             }    
             
             int pageNumber = (page ?? 1);
@@ -26,7 +25,7 @@ namespace BiShop.Controllers
         }
         public ActionResult BlogDetail(int id)
         {
-            var detail = data.TinTucs.FirstOrDefault(x => x.Id == id);
+            var detail = Blogs.tinTucDetail(id);
             return View(detail);
         }
     }

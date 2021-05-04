@@ -22,15 +22,14 @@ namespace BiShop.Models
         }
     
         [Key]
+        [Display(Name = "Mã khuyến mãi")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Bạn hãy nhập nội dung khuyến mãi")]
         [Display(Name = "Nội dung khuyến mãi")]
         public string NoiDungKM { get; set; }
 
-        [Required(ErrorMessage = "Bạn hãy nhập giá khuyến mãi")]
-        [Display(Name = "Giá khuyến mãi")]
-        public Nullable<int> GiaKM { get; set; }
+        [Display(Name = "Chiết khấu")]
+        public Nullable<int> Discount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoaiSanPham> LoaiSanPhams { get; set; }

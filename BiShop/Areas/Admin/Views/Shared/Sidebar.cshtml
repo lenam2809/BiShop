@@ -1,0 +1,132 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    if (Session["Role"].ToString() == "admin")
+    {
+        <div class="sidebar-menu-container">
+            <ul class="sidebar-menu mt-4 mb-4">
+
+                <li class="parent">
+                    <a href="/Admin/AdminManagement/Index" class="">
+                        <i class="fas fa-home mr-3"></i>
+                        <span class="none">Home </span>
+                    </a>
+                </li>
+
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('ul_element'); return false" class="">
+                        <i class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Quản Lý Sản Phẩm <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="ul_element">
+                        <li class="child"><a href="/Admin/SanPhams/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Sản Phẩm</a></li>
+                        <li class="child"><a href="/Admin/LoaiSanPhams/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Danh mục sản phẩm</a></li>
+                        <li class="child"><a href="/Admin/NCCs/index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Nhà cung cấp</a></li>
+                        <li class="child"><a href="/Admin/NhapSanPhams/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Nhập sản phẩm</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('form_element'); return false" class="">
+                        <i class="fa fa-pencil-square mr-3"></i>
+                        <span class="none">Quản Lý Khách Hàng <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="form_element">
+                        <li class="child"><a href="/Admin/KhachHangs/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Khách Hàng</a></li>
+                        <li class="child"><a href="/Admin/Accounts/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Tài khoản</a></li>
+                        <li class="child"><a href="/Admin/Reviews/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Reviews</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('editors'); return false" class="">
+                        <i class="fa fa-pencil-square-o mr-3"></i>
+                        <span class="none">Quản Lý Đơn Hàng <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="editors">
+                        <li class="child"><a href="/Admin/DonHangs/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Đơn hàng</a></li>
+                        <li class="child"><a href="/Admin/Ships/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Ship</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('tables'); return false" class="">
+                        <i class="fa fa-pencil-square mr-3"></i>
+                        <span class="none">Quản Lý Tin tức <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="tables">
+                        <li class="child"><a href="/Admin/TinTucs/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Tin tức</a></li>
+                        <li class="child"><a href="/Admin/LoaiTins/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Loại tin tức</a></li>
+                        <li class="child"><a href="/Admin/KhuyenMais/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Khuyến mãi</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('baocao'); return false" class="">
+                        <i class="fa fa-pencil-square mr-3"></i>
+                        <span class="none">Báo cáo thống kê <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="baocao">
+                        <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoXuat" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo xuất</a></li>
+                        <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoNhap" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo nhập</a></li>
+                        <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoTon" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo sản phẩm tồn</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="sidebar-menu-container">
+            <ul class="sidebar-menu mt-4 mb-4">
+
+                <li class="parent">
+                    <a href="/Admin/AdminManagement/Index" class="">
+                        <i class="fa fa-dashboard mr-3"> </i>
+                        <span class="none">Home </span>
+                    </a>
+                </li>
+
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('ul_element'); return false" class="">
+                        <i class="fa fa-puzzle-piece mr-3"></i>
+                        <span class="none">Quản Lý Sản Phẩm <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="ul_element">
+                        <li class="child"><a href="/Admin/SanPhams/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Sản Phẩm</a></li>
+                        <li class="child"><a href="/Admin/LoaiSanPhams/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Danh mục sản phẩm</a></li>
+                        <li class="child"><a href="/Admin/NCCs/index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Nhà cung cấp</a></li>
+                        <li class="child"><a href="/Admin/NhapSanPhams/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Nhập sản phẩm</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('form_element'); return false" class="">
+                        <i class="fa fa-pencil-square mr-3"></i>
+                        <span class="none">Quản Lý Khách Hàng <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="form_element">
+                        <li class="child"><a href="/Admin/KhachHangs/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Khách Hàng</a></li>
+                        <li class="child"><a href="/Admin/Reviews/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Reviews</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('editors'); return false" class="">
+                        <i class="fa fa-pencil-square-o mr-3"></i>
+                        <span class="none">Quản Lý Đơn Hàng <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="editors">
+                        <li class="child"><a href="/Admin/DonHangs/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Đơn hàng</a></li>
+                        <li class="child"><a href="/Admin/Ships/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Ship</a></li>
+                    </ul>
+                </li>
+                <li class="parent">
+                    <a href="#" onclick="toggle_menu('tables'); return false" class="">
+                        <i class="fa fa-pencil-square mr-3"></i>
+                        <span class="none">Quản Lý Tin tức <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                    </a>
+                    <ul class="children" id="tables">
+                        <li class="child"><a href="/Admin/TinTucs/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Tin tức</a></li>
+                        <li class="child"><a href="/Admin/LoaiTins/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Loại tin tức</a></li>
+                        <li class="child"><a href="/Admin/KhuyenMais/Index" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Khuyến mãi</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    }
+}
+

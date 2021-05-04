@@ -30,7 +30,7 @@ namespace BiShop.Models
 
         [Display(Name = "Ngày tạo")]
         public Nullable<System.DateTime> NgayTao { get; set; }
-    
+
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual SanPham SanPham { get; set; }
     }

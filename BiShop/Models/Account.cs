@@ -20,8 +20,9 @@ namespace BiShop.Models
         {
             this.KHACHHANGs = new HashSet<KHACHHANG>();
         }
-    
+  
         [Key]
+        [Required(ErrorMessage = "Bạn hãy nhập email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập mật khẩu")]
@@ -31,7 +32,7 @@ namespace BiShop.Models
 
         [Display(Name = "Vai trò")]
         public string Role { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHACHHANG> KHACHHANGs { get; set; }
     }

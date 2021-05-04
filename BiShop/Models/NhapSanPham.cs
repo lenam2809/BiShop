@@ -15,22 +15,24 @@ namespace BiShop.Models
 
     public partial class NhapSanPham
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NhapSanPham()
+        {
+            this.CTNhapSanPhams = new HashSet<CTNhapSanPham>();
+        }
+    
         [Key]
+        [Display(Name = "Mã Đơn Nhập")]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Bạn hãy nhập mã sản phẩm")]
-        [Display(Name = "Mã sản phẩm")]
-        public Nullable<int> MaSP { get; set; }
 
         [Display(Name = "Ngày nhập")]
         public Nullable<System.DateTime> NgayNhap { get; set; }
 
-        [Required(ErrorMessage = "Bạn hãy nhập số lượng")]
-        [Display(Name = "Số lượng nhập")]
-        public Nullable<int> SoLuong { get; set; }
+        public Nullable<int> MaNCC { get; set; }
 
-        [Required(ErrorMessage = "Bạn hãy nhập giá")]
-        [Display(Name = "Giá nhập")]
-        public Nullable<int> GiaNhap { get; set; }
+        public Nullable<int> MaNV { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTNhapSanPham> CTNhapSanPhams { get; set; }
     }
 }

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BiShop.Models.SanPham>
+
+@{
+    ViewBag.Title = "Báo cáo sản phẩm tồn kho";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="table-responsive">
+    <table id="example" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenSP)
+                </th>
+                <th>
+                    Số lượng tồn
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LinkAnh)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        <img src="@item.LinkAnh" alt="@item.TenSP" width="100" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        $('#example').DataTable();
+    </script>
+}
+

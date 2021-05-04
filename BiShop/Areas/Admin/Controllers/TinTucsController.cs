@@ -88,6 +88,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public async Task<ActionResult> Edit([Bind(Include = "Id,TieuDe,LinkAnh,NoiDung,NgayTao,NguoiTao,LuotXem,LoaiSP,MaLoaiTin")] TinTuc tinTuc)
         {
             if (ModelState.IsValid)

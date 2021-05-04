@@ -21,12 +21,12 @@ namespace BiShop.Models
             this.SanPhams = new HashSet<SanPham>();
         }
     
-
+        [Key]
+        [Display(Name = "Mã nhà cung cấp")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập tên nhà cung cấp")]
         [Display(Name = "Tên nhà cung cấp")]
-        [StringLength(50, ErrorMessage = "{0} phải có từ {2} đến {1} ký tự.", MinimumLength = 3)]
         public string TenNCC { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập mô tả")]

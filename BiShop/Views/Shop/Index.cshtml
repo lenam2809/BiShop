@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<BiShop.Models.SanPham>
+﻿@model PagedList.IPagedList<BiShop.ViewModel.SanPhamViewModel>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Shop";
@@ -6,7 +6,7 @@
     var lsp = ViewBag.lsp;
     var nccs = ViewBag.ncc;
 }
-
+@*<link href="~/assets/css/jquery-ui.css" rel="stylesheet" />*@
 <style>
     .page-item > a {
         position: relative;
@@ -47,8 +47,8 @@
             <div class="col-lg-3">
                 <div class="shop__sidebar">
                     <div class="shop__sidebar__search">
-                        <form action="#">
-                            <input type="text" placeholder="Tìm...">
+                        <form action="/Shop/Search" method="get">
+                            <input id="txtKeyword" type="text" name="search" placeholder="Tìm...">
                             <button type="submit"><span class="icon_search"></span></button>
                         </form>
                     </div>
@@ -64,7 +64,7 @@
                                             <ul class="nice-scroll">
                                                 @foreach (var item in lsp)
                                                 {
-                                                    <li><a href="@Url.Action("Index","Shop", new { id = item.Id })">@item.TenLoai (20)</a></li>
+                                                    <li><a href="@Url.Action("Index","Shop", new { id = item.Id })">@item.TenLoai</a></li>
                                                 }
                                             </ul>
                                         </div>
@@ -96,12 +96,12 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__price">
                                             <ul>
-                                                <li><a href="#">0 &#8363; - 100.000 &#8363;</a></li>
-                                                <li><a href="#">100.000 &#8363; - 200.000 &#8363;</a></li>
-                                                <li><a href="#">200.000 &#8363; - 300.000 &#8363;</a></li>
-                                                <li><a href="#">300.000 &#8363;- 500.000 &#8363;</a></li>
-                                                <li><a href="#">500.000 &#8363; - 1.000.000 &#8363;</a></li>
-                                                <li><a href="#">1.000.000+ &#8363;</a></li>
+                                                <li><a href="@Url.Action("Index","Shop", new { gia = 1 })">0 &#8363; - 100.000 &#8363;</a></li>
+                                                <li><a href="@Url.Action("Index","Shop", new { gia = 2 })">100.000 &#8363; - 200.000 &#8363;</a></li>
+                                                <li><a href="@Url.Action("Index","Shop", new { gia = 3 })">200.000 &#8363; - 300.000 &#8363;</a></li>
+                                                <li><a href="@Url.Action("Index","Shop", new { gia = 5 })">300.000 &#8363;- 500.000 &#8363;</a></li>
+                                                <li><a href="@Url.Action("Index","Shop", new { gia = 10 })">500.000 &#8363; - 1.000.000 &#8363;</a></li>
+                                                <li><a href="@Url.Action("Index","Shop", new { gia = 100 })">1.000.000+ &#8363;</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -131,15 +131,15 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__left">
-                                <p>Hiển thị 1–12 trong 126 kết quả</p>
+                                <p>Hiển thị 1–12 trong @ViewBag.count kết quả</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__right">
                                 <p>Sắp xếp theo giá:</p>
                                 <select id="sort-price">
-                                    <option value="low">thấp đến cao</option>
-                                    <option value="high">cao đến thấp</option>
+                                    <option value="1" selected>tăng dần</option>
+                                    <option value="2">giảm dần</option>
                                 </select>
                             </div>
                         </div>
@@ -150,15 +150,15 @@
                     {
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <input id="masp" style="display: none" value="@item.MaSP" />
-                                <div class="product__item__pic set-bg" data-setbg="@item.LinkAnh">
+                                <input id="masp" style="display: none" value="@item.sanPham.MaSP" />
+                                <div class="product__item__pic set-bg" data-setbg="@item.sanPham.LinkAnh">
                                     <ul class="product__hover">
-                                        <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = item.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
+                                        <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = item.sanPham.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>@item.TenSP</h6>
-                                    <a href="@Url.Action("ShopDetail", "Shop", new { id = item.MaSP })" class="add-cart">Xem thêm</a>
+                                    <h6>@item.sanPham.TenSP</h6>
+                                    <a href="@Url.Action("ShopDetail", "Shop", new { id = item.sanPham.MaSP })" class="add-cart">Xem thêm</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -167,11 +167,12 @@
                                         <i class="fa fa-star-o"></i>
                                     </div>
                                     @{
-                                        var gia = string.Format("{0}.000", item.Gia.ToString());
+                                        var gia = string.Format("{0}.000", item.sanPham.Gia.ToString());
+                                        var discount = string.Format("{0}.000", item.Discount.ToString());
                                     }
-                                    <h5>@gia &#8363;</h5>
+                                    <h5>@discount &#8363;</h5>
                                     <div class="product__color__select">
-                                        <span>122</span>
+                                        <span>@gia &#8363;</span>
                                     </div>
                                 </div>
                             </div>
@@ -194,4 +195,52 @@
     </div>
 </section>
 <!-- Shop Section End -->
+@section scripts {
+    <script src="~/assets/js/jquery-ui.js"></script>
+    <script>
+        var common = {
+            init: function () {
+                common.registerEvent();
+            },
+            registerEvent: function () {
+                $("#txtKeyword").autocomplete({
+                    minLength: 0,
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/Shop/ListName",
+                            dataType: "json",
+                            data: {
+                                term: request.term
+                            },
+                            success: function (res) {
+                                response(res.data);
+                            }
+                        });
+                    },
+                    focus: function (event, ui) {
+                        $("#txtKeyword").val(ui.item.label);
+                        return false;
+                    },
+                    select: function (event, ui) {
+                        $("#txtKeyword").val(ui.item.label);
+                        return false;
+                    }
+                })
+                    .autocomplete("instance")._renderItem = function (ul, item) {
+                        return $("<li>")
+                            .append("<div>" + item.label + "</div>")
+                            .appendTo(ul);
+                    };
+            }
+        }
+        common.init();
+    </script>
+    <script>
+        $('#sort-price').change(function () {
+            var sort = $(this).find(':selected').val();
+            window.location.href = "/Shop/Index?sort=" + sort;
+        });
+    </script>
+}
+
 

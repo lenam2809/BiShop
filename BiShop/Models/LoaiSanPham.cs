@@ -23,10 +23,11 @@ namespace BiShop.Models
         }
     
         [Key]
+        [Display(Name = "Mã loại sản phẩm")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập tên loại sản phẩm")]
-        [Display(Name = "Tên loại sản phẩm")]
+        [Display(Name = "Tên loại")]
         public string TenLoai { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập miêu tả")]
@@ -41,7 +42,6 @@ namespace BiShop.Models
 
         [Display(Name = "Ảnh")]
         public string LinkAnh { get; set; }
-
     
         public virtual KhuyenMai KhuyenMai { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

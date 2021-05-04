@@ -46,11 +46,12 @@
                     <h3 class="mb-4">Tầm nhìn</h3>
                     <p class="mb-4">Trở thành thương hiệu thời trang nam hàng đầu được giới trẻ tin dùng</p>
                     <p class="text-center"><a href="/Home/Register" class="btn btn-light">Đăng ký</a></p>
+                    <p class="text-center"><a href="/Home/Index" class="btn btn-light">Trở về trang chủ</a></p>
                 </div>
                 <div class="col-md-6 col-sm-6 col-12 login-box-form p-4">
                     <h3 class="mb-2">Đăng nhập</h3>
                     <small id="title-login" class="text-muted bc-description">Đăng nhập bằng thông tin cá nhân của bạn</small>
-                    
+
                     <form action="/Home/Login" returnUrl="@Request.QueryString["ReturnUrl"]" enctype="multipart/form-data" method="post" class="mt-2">
                         @Html.ValidationMessage("test")
                         <div class="input-group mb-3">
@@ -94,6 +95,25 @@
     <!--Custom Js Script-->
     <script src="~/Areas/assets/js/custom.js"></script>
     <!--Custom Js Script-->
+    <!--Toastr-->
+    <script src="~/assets/Toastr/toastr.js"></script>
+    <link href="~/assets/Toastr/toastrCss.css" rel="stylesheet" />
+    @if (TempData["Success"] != null)
+    {
+        <script type="text/javascript">
+            toastr.options =
+            {
+                "debug": false,
+                "positionClass": "toast-bottom-right",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 100,
+                "timeOut": 3000,
+                "extendedTimeOut": 1000
+            }
+            toastr.success("Đăng ký thành công", "Thông báo");
+        </script>
+    }
 
 </body>
 </html>

@@ -22,9 +22,10 @@
                 <div class="pull-right mr-3 btn-order-bulk">
                     <select class="shadow bg-secondary bulk-actions">
                         <option value="0" data-display="<span class='text-white'><b>Tất cả đơn hàng</b></span>">Tất cả đơn hàng</option>
-                        <option value="1">Đang chờ xử lý</option>
-                        <option value="2">Đã hủy</option>
-                        <option value="4">Đã giao hàng</option>
+                        <option value="1">Đơn mới</option>
+                        <option value="2">Đơn hủy</option>
+                        <option value="3">Đơn đang giao</option>
+                        <option value="4">Đơn hoàn thành</option>
                     </select>
                 </div>
 
@@ -48,7 +49,7 @@
                             @Html.DisplayNameFor(model => model.KHACHHANG.TenKH)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.IsActive)
+                            @Html.DisplayNameFor(model => model.TrangThai)
                         </th>
                         <th>
 
@@ -60,7 +61,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Ship.ShipName)
                         </th>
-                        <th>Hoạt đông</th>
+                        <th>Hoạt động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,21 +81,25 @@
                         </td>
                         @helper WelcomeMessage(string trangthai)
                         {
-                            if (trangthai == "Đang chờ xử lý")
+                            if (trangthai == "Đơn mới")
                             {
                                 <td class="align-middle"><span class="badge badge-warning">@trangthai</span></td>
                             }
-                            if (trangthai.Equals("Đã hủy"))
+                            if (trangthai.Equals("Đơn hủy"))
                             {
                                 <td class="align-middle"><span class="badge badge-danger">@trangthai</span></td>
                             }
-                            if (trangthai.Equals("Đã giao hàng"))
+                            if (trangthai.Equals("Đơn hoàn thành"))
                             {
                                 <td class="align-middle"><span class="badge badge-success">@trangthai</span></td>
                             }
+                            if (trangthai.Equals("Đơn đang giao"))
+                            {
+                                <td class="align-middle"><span class="badge badge-info">@trangthai</span></td>
+                            }
                         }
                         @{
-                            var trangthai = item.IsActive;
+                            var trangthai = item.TrangThai;
                         }
                         @WelcomeMessage(trangthai)
                         <td class="align-middle">@Html.DisplayFor(modelItem => item.NgayDH)</td>
@@ -104,7 +109,6 @@
                             <div style="display: flex;">
                                 <a title="Chi tiết đơn hàng" class="btn btn-primary" href="@Url.Action("Details", "DonHangs", new { id = item.MaDH })"><i class="fa fa-info-circle"></i></a>&nbsp;
                                 <a title="Chỉnh sửa" class="btn btn-success" href="@Url.Action("Edit", "DonHangs", new { id = item.MaDH })"><i class="fas fa-edit"></i></a>&nbsp;
-                                @*<a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "DonHangs", new { id = item.MaDH })"><i class="fas fa-trash-alt"></i></a>*@
                             </div>
                         </td>
                     </tr>

@@ -30,19 +30,20 @@ namespace BiShop.Models
         [Display(Name = "Ngày đặt hàng")]
         public Nullable<System.DateTime> NgayDH { get; set; }
 
-
         public Nullable<int> MaShip { get; set; }
 
-        [Required(ErrorMessage = "Bạn hãy nhập địa chỉ nhận hàng")]
         [Display(Name = "Địa chỉ nhận hàng")]
         public string DiaChiShip { get; set; }
 
         [Display(Name = "Trạng thái")]
-        public string IsActive { get; set; }
+        public string TrangThai { get; set; }
+
+        [Display(Name = "Ghi chú")]
+        public string GhiChu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTDonHang> CTDonHangs { get; set; }
-        public virtual Ship Ship { get; set; }
         public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual Ship Ship { get; set; }
     }
 }

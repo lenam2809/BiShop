@@ -11,7 +11,6 @@ namespace BiShop.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class KHACHHANG
@@ -19,11 +18,12 @@ namespace BiShop.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACHHANG()
         {
-            this.Reviews = new HashSet<Review>();
             this.DonHangs = new HashSet<DonHang>();
+            this.Reviews = new HashSet<Review>();
         }
     
         [Key]
+        [Display(Name = "Mã khách hàng")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập tên khách hàng")]
@@ -43,21 +43,21 @@ namespace BiShop.Models
         [Required(ErrorMessage = "Bạn hãy nhập email")]
         public string Email { get; set; }
 
-
-        [DefaultValue("0")]
         public string Vip { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập số điện thoại")]
         public string Phone { get; set; }
 
         [Display(Name = "Ảnh")]
-        [DefaultValue("~/assets/images/in.jpg")]
         public string Photo { get; set; }
+
+        [Display(Name = "Ngày tạo")]
+        public Nullable<System.DateTime> NgayTao { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

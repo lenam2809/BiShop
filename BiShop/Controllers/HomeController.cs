@@ -1,7 +1,9 @@
 ﻿using BiShop.Models;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -39,15 +41,16 @@ namespace BiShop.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var CountKH = db.KHACHHANGs.Count();
+            ViewBag.CountKH = CountKH;
 
+            var CountSP = db.SanPhams.Count();
+            ViewBag.CountSP = CountSP;
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -101,46 +104,69 @@ namespace BiShop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(string name, string phone, string email, string pass, string role = "member")
+        public ActionResult Register(string name, string phone, string email, string pass, string role = "member")
         {
-            if (ModelState.IsValid)
+            try
             {
-                var check = db.Accounts.FirstOrDefault(s => s.Email == email.Trim());
-                if (check == null)
+                if (ModelState.IsValid)
                 {
-                    Account account = new Account();
-                    account.Email = email.Trim();
-                    account.Password = pass.Trim();
-                    account.Role = role;
-                    db.Accounts.Add(account);
-                    await db.SaveChangesAsync();
+                    var check = db.Accounts.FirstOrDefault(s => s.Email == email.Trim());
+                    if (check == null)
+                    {
+                        Account account = new Account();
+                        account.Email = email.Trim();
+                        account.Password = pass.Trim();
+                        account.Role = role;
+                        db.Accounts.Add(account);
+                        db.SaveChanges();
 
-                    KHACHHANG kh = new KHACHHANG();
-                    kh.TenKH = name.Trim();
-                    kh.Email = account.Email; ;
-                    kh.Phone = phone.Trim();
-                    kh.NgaySinh = DateTime.Today;
-                    kh.GioiTinh = null;
-                    kh.DiaChi = null;
-                    kh.Vip = null;
-                    kh.Photo = null;
-                    db.KHACHHANGs.Add(kh);
-                    await db.SaveChangesAsync();
-                    ViewBag.success = "Đăng ký thành công";
-                    return RedirectToAction("Login", "Home");
+                        KHACHHANG kh = new KHACHHANG();
+                        kh.TenKH = name.Trim();
+                        kh.Email = account.Email;
+                        kh.Phone = phone.Trim();
+                        kh.NgaySinh = DateTime.Today;
+                        kh.GioiTinh = "Nam";
+                        kh.DiaChi = "Hà Nội";
+                        kh.Vip = "Không";
+                        kh.Photo = "/Upload/img_avatar.png";
+                        kh.NgayTao = DateTime.Now;
+                        db.KHACHHANGs.Add(kh);
+                        db.SaveChanges();
+                        ViewBag.success = "Đăng ký thành công";
+                        TempData["Success"] = "Đăng ký thành công";
+                        return RedirectToAction("Login", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.error = "Email đã tồn tại";
+                        return View();
+                    }
                 }
-                else
-                {
-                    ViewBag.error = "Email đã tồn tại";
-                    return View();
-                }
+                return View();
             }
-            return View();
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting  
+                        // the current instance as InnerException  
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
         }
 
         public ActionResult ProfileOfEmail(int id)
         {
             var profile = db.KHACHHANGs.FirstOrDefault(p => p.Id == id);
+            ViewBag.avt = profile.Photo;
             ViewBag.TenKH = profile.TenKH;
             ViewBag.MaKH = profile.Id;
             ViewBag.NgaySinh = profile.NgaySinh;
@@ -149,18 +175,6 @@ namespace BiShop.Controllers
             ViewBag.Phone = profile.Phone;
             ViewBag.Email = profile.Email;
 
-
-            var JoinDH0 = from d in db.DonHangs
-                          join c in db.CTDonHangs
-                          on d.MaDH equals c.MaDH
-                          select new { d.MaKH, c.MaSP, c.SoLuong, d.NgayDH };
-            var JoinDH = JoinDH0.Where(s => s.MaKH == profile.Id);
-
-            var JoinSP = from a in JoinDH
-                         join s in db.SanPhams
-                         on a.MaSP equals s.MaSP
-                         select new LSThanhToan { TenSP = s.TenSP, SoLuong = (int)a.SoLuong, Gia = (int)s.Gia, NgayDH = (DateTime)a.NgayDH };
-            ViewBag.donhang = JoinSP;
             return View();
         }
 
@@ -185,7 +199,7 @@ namespace BiShop.Controllers
                 Sp.GioiTinh = collection.GioiTinh;
                 Sp.Phone = collection.Phone;
                 db.SaveChanges();
-                return RedirectToAction("ProfileOfEmail", new { email = collection.Email });
+                return RedirectToAction("ProfileOfEmail", new { id = id });
             }
             catch
             {
@@ -197,6 +211,60 @@ namespace BiShop.Controllers
         {
             var donhang = db.DonHangs.Where(p => p.MaKH == id);
             return View(donhang);
+        }
+
+        public ActionResult ChiTietDH(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var ctdonHang = db.CTDonHangs.Where(x => x.MaDH == id).ToList();
+            if (ctdonHang == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ctdonHang);
+        }
+
+        public ActionResult XemHoaDon(int id)
+        {
+            var donhang = db.DonHangs.FirstOrDefault(x => x.MaDH == id);
+            var ctdh = db.CTDonHangs.Where(x => x.MaDH == id);
+            var total = 0;
+            foreach (var item in ctdh)
+            {
+                total += (int)((item.SanPham.Gia - (item.SanPham.LoaiSanPham.KhuyenMai.Discount * item.SanPham.Gia / 100))*item.SoLuong);
+            }
+            var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            ViewBag.Tongtien = String.Format(info, "{0:c3}", total);
+            ViewBag.ctdh = ctdh;
+            return View(donhang);
+        }
+
+
+        public ActionResult XuatHoaDon(int id)
+        {
+            var donhang = db.DonHangs.FirstOrDefault(x => x.MaDH == id);
+            var ctdh = db.CTDonHangs.Where(x => x.MaDH == id);
+            var total = 0;
+            foreach (var item in ctdh)
+            {
+                total += (int)((item.SanPham.Gia - (item.SanPham.LoaiSanPham.KhuyenMai.Discount * item.SanPham.Gia / 100)) * item.SoLuong);
+            }
+            var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+            ViewBag.Tongtien = String.Format(info, "{0:c3}", total);
+            ViewBag.ctdh = ctdh;
+            var report = new PartialViewAsPdf("~/Views/ListPartial/_HoaDon.cshtml", donhang);
+            return report;
+        }
+
+        public ActionResult Cancel(int id)
+        {
+            var donhang = db.DonHangs.FirstOrDefault(x => x.MaDH == id);
+            donhang.TrangThai = "Đơn hủy";
+            db.SaveChanges();
+            return RedirectToAction("LichSuThanhToan", new { id = donhang.MaKH });
         }
     }
 }

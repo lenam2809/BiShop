@@ -49,7 +49,7 @@
                     <div class="blog__item">
                         <div class="blog__item__pic set-bg" data-setbg="@item.LinkAnh"></div>
                         <div class="blog__item__text">
-                            <span><img src="~/assets/img/icon/calendar.png" alt=""> @item.NgayTao</span>
+                            <span><img src="~/assets/img/icon/calendar.png" alt=""> @Html.DisplayFor(modelItem => item.NgayTao)</span>
                             <h5>@item.TieuDe</h5>
                             <a href="@Url.Action("BlogDetail", "Blogs", new { id = item.Id })">Đọc thêm</a>
                         </div>

@@ -1,15 +1,16 @@
 ﻿@model BiShop.Models.KhuyenMai
 
 @{
-    ViewBag.Title = "Chỉnh sửa tin khuyến mãi";
+    ViewBag.Title = "Chỉnh sửa khuyến mãi";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -24,10 +25,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GiaKM, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GiaKM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GiaKM, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -38,6 +39,8 @@
         </div>
     </div>
 }
+
+
 <div>
-    <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "KhuyenMais")"><i class="fas fa-backward"></i> Trở về</a>
+    <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "KhuyenMais" )"><i class="fas fa-backward"></i> Trở về</a>
 </div>

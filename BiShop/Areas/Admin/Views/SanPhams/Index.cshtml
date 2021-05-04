@@ -53,10 +53,10 @@
                                     @Html.DisplayFor(modelItem => item.Gia)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ChatLieu)
+                                    @Html.Raw(item.ChatLieu)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.KieuDang)
+                                    @Html.Raw(item.KieuDang)
                                 </td>
                                 <td>
                                     <img src="@Html.DisplayFor(modelItem => item.LinkAnh)" alt="img" width="80" height="120" />

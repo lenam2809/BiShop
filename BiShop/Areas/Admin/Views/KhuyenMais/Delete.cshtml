@@ -1,12 +1,13 @@
 ﻿@model BiShop.Models.KhuyenMai
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa khuyến mãi";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
-<h3>Bạn có chắc chán muốn xóa?</h3>
+
+<h3>Bạn có chắc chắn muốn xóa?</h3>
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -16,16 +17,27 @@
         <dd>
             @Html.DisplayFor(model => model.NoiDungKM)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Xóa" class="btn btn-danger" />
         </div>
     }
-</div>
-<div>
-    <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "KhuyenMais")"><i class="fas fa-backward"></i> Trở về</a>
+
+    <div>
+        <a title="Trở về" class="btn btn-warning" style="margin-top: 15px;" href="@Url.Action("Index", "KhuyenMais" )"><i class="fas fa-backward"></i> Trở về</a>
+    </div>
 </div>

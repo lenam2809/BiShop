@@ -78,15 +78,15 @@
     <h6>Phân tích tổng quan trong năm 2021 và biểu đồ doanh thu qua các năm</h6><hr>
     <div class="row mb-3">
         <div class="col-sm-4 ol-12">
-            <h1 class="text-success">1560</h1>
+            <h1 class="text-success">@ViewBag.KhachHangMoiTrongNam</h1>
             <h5>Khách hàng mới</h5>
         </div>
         <div class="col-sm-4 ol-12 text-center">
-            <h1 class="text-theme">1300</h1>
+            <h1 class="text-theme">@ViewBag.SanPhamXuatTrongNam</h1>
             <h5>Đơn hàng đi</h5>
         </div>
         <div class="col-sm-4 ol-12 text-right">
-            <h1 class="text-danger">$5545</h1>
+            <h1 class="text-danger">@ViewBag.TongDoanhThuTrongNam</h1>
             <h5>Doanh thu</h5>
         </div>
     </div>
@@ -99,7 +99,9 @@
     <script>
         if ($("#orderRevenue").length) {
             var ctx = document.getElementById("orderRevenue");
-            var test = [130, 74, 6, 39, 20, 85, 7];
+            var DonHangDi = @Html.Raw(ViewBag.SanPhamXuatQuaCacNam);
+            var KhachHangMoi = @Html.Raw(ViewBag.KhachHangMoiQuaCacNam);
+            var DoanhThu = @Html.Raw(ViewBag.DoanhThuQuaCacNam);
             var revChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -110,21 +112,21 @@
                             borderColor: "rgb(59, 224, 40)",
                             borderWidth: "3",
                             backgroundColor: "rgb(59, 224, 40, 0.8)",
-                            data: test,
+                            data: KhachHangMoi,
                         },
                         {
                             label: "Đơn hàng đi",
                             borderColor: "rgb(30, 44, 199)",
                             borderWidth: "3",
                             backgroundColor: "rgba(30, 44, 199, 0.8)",
-                            data: [82, 23, 66, 9, 119, 6, 9],
+                            data: DonHangDi,
                         },
                         {
                             label: "Doanh thu",
                             borderColor: "rgb(245, 81, 66)",
                             borderWidth: "3",
                             backgroundColor: "rgba(245, 81, 66, 0.8)",
-                            data: [8, 23, 36, 59, 119, 226, 309],
+                            data: DoanhThu,
                         }
                     ]
                 },
@@ -146,17 +148,20 @@
         }
     </script>
     <script>
+        var doanhThu7Ngay = @Html.Raw(ViewBag.DoanhThu7Ngay);
+        var ChiPhi7Ngay = @Html.Raw(ViewBag.ChiPhi7Ngay);
+        var Trong7Ngay = @Html.Raw(ViewBag.Trong7Ngay);
         if ($("#lineChartChartist").length) {
             new Chartist.Line('.ct-chart', {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sun'],
+                labels: Trong7Ngay,
                 series: [
                     {
                         labels: 'Working week days',
-                        data: [12, 9, 7, 8, 5, 10],
+                        data: doanhThu7Ngay,
                     },
                     {
                         labels: 'Working week days',
-                        data: [12, 7, 8, 5, 8, 16],
+                        data: ChiPhi7Ngay,
                     },
                 ]
             }, {
@@ -169,12 +174,14 @@
     </script>
     <script>
         //Dashboard revenue vs cost
+        var DoanhThu12Thang = @Html.Raw(ViewBag.DoanhThu12Thang);
+        var ChiPhi12Thang = @Html.Raw(ViewBag.ChiPhi12Thang);
         if ($("#costRevenue").length) {
             var data = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 series: [
-                    [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-                    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+                    DoanhThu12Thang,
+                    ChiPhi12Thang
                 ]
             };
 

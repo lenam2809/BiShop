@@ -39,8 +39,10 @@
                         @Html.DisplayFor(modelItem => item.Role)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Email }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Email })
+                        <div style="display: flex;">
+                            <a title="Chỉnh sửa" class="btn btn-success" href="@Url.Action("Edit", "Accounts", new { id = item.Email })"><i class="fas fa-edit"></i></a>&nbsp;
+                            <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "Accounts", new { id = item.Email })"><i class="fas fa-trash-alt"></i></a>
+                        </div>
                     </td>
                 </tr>
             }

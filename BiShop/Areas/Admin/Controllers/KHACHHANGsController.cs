@@ -50,7 +50,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,TenKH,NgaySinh,DiaChi,GioiTinh,Email,Vip,Phone,Photo")] KHACHHANG kHACHHANG)
+        public async Task<ActionResult> Create([Bind(Include = "Id,TenKH,NgaySinh,DiaChi,GioiTinh,Email,Vip,Phone,Photo,NgayTao")] KHACHHANG kHACHHANG)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,TenKH,NgaySinh,DiaChi,GioiTinh,Email,Vip,Phone,Photo")] KHACHHANG kHACHHANG)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,TenKH,NgaySinh,DiaChi,GioiTinh,Email,Vip,Phone,Photo,NgayTao")] KHACHHANG kHACHHANG)
         {
             if (ModelState.IsValid)
             {

@@ -22,6 +22,7 @@ namespace BiShop.Models
         }
     
         [Key]
+        [Display(Name = "Mã đơn vị giao hàng")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập tên đơn vị giao hàng")]

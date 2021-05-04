@@ -11,14 +11,13 @@ namespace BiShop.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class TinTuc
     {
         [Key]
+        [Display(Name = "Mã tin tức")]
         public int Id { get; set; }
-
 
         [Required(ErrorMessage = "Bạn hãy nhập tiêu đề")]
         [Display(Name = "Tiêu đề")]
@@ -32,6 +31,8 @@ namespace BiShop.Models
         public string NoiDung { get; set; }
 
         [Display(Name = "Ngày tạo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> NgayTao { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập người tạo")]
@@ -39,12 +40,9 @@ namespace BiShop.Models
         public string NguoiTao { get; set; }
 
         [Display(Name = "Lượt xem")]
-        [DefaultValue("0")]
         public Nullable<int> LuotXem { get; set; }
 
-
         public Nullable<int> LoaiSP { get; set; }
-
 
         public Nullable<int> MaLoaiTin { get; set; }
     

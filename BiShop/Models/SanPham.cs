@@ -11,7 +11,6 @@ namespace BiShop.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class SanPham
@@ -20,10 +19,12 @@ namespace BiShop.Models
         public SanPham()
         {
             this.CTDonHangs = new HashSet<CTDonHang>();
+            this.CTNhapSanPhams = new HashSet<CTNhapSanPham>();
             this.Reviews = new HashSet<Review>();
         }
     
         [Key]
+        [Display(Name = "Mã sản phẩm")]
         public int MaSP { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập tên sản phẩm")]
@@ -31,8 +32,8 @@ namespace BiShop.Models
         [StringLength(250, ErrorMessage = "{0} phải có từ {2} đến {1} ký tự.", MinimumLength = 3)]
         public string TenSP { get; set; }
 
-        [Required(ErrorMessage = "Bạn hãy nhập giá")]
-        [Display(Name = "Giá")]
+        [Required(ErrorMessage = "Bạn hãy nhập giá bán")]
+        [Display(Name = "Giá bán")]
         public Nullable<int> Gia { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập chất liệu")]
@@ -40,27 +41,26 @@ namespace BiShop.Models
         public string ChatLieu { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập kiểu dáng")]
-        [Display(Name = "kiểu dáng")]
+        [Display(Name = "Kiểu dáng")]
         public string KieuDang { get; set; }
 
         [Display(Name = "Ảnh")]
         public string LinkAnh { get; set; }
 
         [Display(Name = "Số lượng")]
-        [DefaultValue("0")]
         public Nullable<int> SoLuong { get; set; }
 
         [Display(Name = "Trạng thái xóa")]
         public Nullable<bool> IsDelete { get; set; }
 
-
         public Nullable<int> MaNCC { get; set; }
-
 
         public Nullable<int> MaLSP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTDonHang> CTDonHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTNhapSanPham> CTNhapSanPhams { get; set; }
         public virtual LoaiSanPham LoaiSanPham { get; set; }
         public virtual NCC NCC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

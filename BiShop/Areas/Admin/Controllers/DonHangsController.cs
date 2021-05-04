@@ -62,7 +62,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MaDH,MaKH,NgayDH,MaShip,DiaChiShip,IsActive")] DonHang donHang)
+        public async Task<ActionResult> Edit([Bind(Include = "MaDH,MaKH,NgayDH,MaShip,DiaChiShip,TrangThai")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {

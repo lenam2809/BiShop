@@ -15,9 +15,7 @@ namespace BiShop.Models
     public partial class Search
     {
         public int Id { get; set; }
-
         public string Info { get; set; }
-
         public string Link { get; set; }
     }
 }

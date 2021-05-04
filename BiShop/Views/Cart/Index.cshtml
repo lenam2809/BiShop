@@ -41,22 +41,26 @@
                                     <tr>
                                         <td class="product__cart__item">
                                             <div class="product__cart__item__pic">
-                                                <img src="@item.SanPham.LinkAnh" width="100" alt="@item.SanPham.TenSP">
+                                                <img src="@item.SanPhamViewModel.sanPham.LinkAnh" width="100" alt="@item.SanPhamViewModel.sanPham.TenSP">
                                             </div>
+                                            @{
+                                                var gia = string.Format("{0}.000", item.SanPhamViewModel.Discount.ToString());
+                                                var tong = string.Format("{0}.000", item.TongTien.ToString());
+                                            }
                                             <div class="product__cart__item__text">
-                                                <h6>@item.SanPham.TenSP</h6>
-                                                <h5>Giá: @item.SanPham.Gia</h5>
+                                                <h6>@item.SanPhamViewModel.sanPham.TenSP</h6>
+                                                <h5>Giá: @gia &#8363;</h5>
                                             </div>
                                         </td>
                                         <td class="quantity__item">
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
-                                                    <input type="text" class="soluong" data-id="@item.SanPham.MaSP" value="@item.SoLuong">
+                                                    <input type="text" class="soluong" data-id="@item.SanPhamViewModel.sanPham.MaSP" value="@item.SoLuong">
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="cart__price">@ViewBag.tongtien</td>
-                                        <td class="cart__close"><button id="btn-delete" data-id="@item.SanPham.MaSP" title="Delete" class="btn"><i class="fa fa-close"></i></button></td>
+                                        <td class="cart__price">@tong &#8363;</td>
+                                        <td class="cart__close"><button id="btn-delete" data-id="@item.SanPhamViewModel.sanPham.MaSP" title="Delete" class="btn"><i class="fa fa-close"></i></button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -79,7 +83,7 @@
                     <div class="cart__total">
                         <h6>Tổng</h6>
                         <ul>
-                            <li>Tổng <span>$ 169.50</span></li>
+                            <li>Tổng <span>@ViewBag.total</span></li>
                             <li>Phí ship <span>0</span></li>
                         </ul>
                         <a href="/Cart/ThanhToan" class="primary-btn">Thanh toán</a>
@@ -92,32 +96,23 @@
 }
 else
 {
-<div class="container text-center p-4">
-    <p style="color: red; font-size: large;">Không có sản phẩm nào trong giỏ hàng</p>
-    <div class="continue__btn">
-        <a href="@Url.Action("Index", "Shop")">Tiếp tục mua hàng</a>
+    <div class="container text-center p-4">
+        <p style="color: red; font-size: large;">Không có sản phẩm nào trong giỏ hàng</p>
+        <div class="continue__btn">
+            <a href="@Url.Action("Index", "Shop")">Tiếp tục mua hàng</a>
+        </div>
     </div>
-</div>
 }
 
 
 
 @section scripts {
     <script>
-            //$(document).ready(function () {
-            //    var tongtien = parseInt($('.tongtien').text);
-            //    alert(tongtien);
-            //});
 
 
-        @*@foreach (var item in tongtien)
-        {
-            tongtien  +  @item.SoLuong;
-        }*@
-
-            $('#btnThanhToan').off('click').on('click', function () {
-                window.location.href = '/Cart/ThanhToan';
-            });
+        $('#btnThanhToan').off('click').on('click', function () {
+            window.location.href = '/Cart/ThanhToan';
+        });
 
         //cap nhat
         $('#updateCart').click(function () {
@@ -128,8 +123,10 @@ else
             $.each(listsp, function (i, item) {
                 cartList.push({
                     SoLuong: $(item).val(),
-                    SanPham: {
-                        MaSP: $(item).data('id')
+                    SanPhamViewModel: {
+                        sanPham: {
+                            MaSP: $(item).data('id')
+                        }
                     }
                 });
             });
@@ -165,4 +162,23 @@ else
         });
 
     </script>
+    <!--Toastr-->
+    <script src="~/assets/Toastr/toastr.js"></script>
+    <link href="~/assets/Toastr/toastrCss.css" rel="stylesheet" />
+    @if (TempData["ThanhToan"] != null)
+    {
+        <script type="text/javascript">
+            toastr.options =
+            {
+                "debug": false,
+                "positionClass": "toast-bottom-right",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 100,
+                "timeOut": 3000,
+                "extendedTimeOut": 1000
+            }
+            toastr.success("Thanh toán thành công", "Thông báo");
+        </script>
+    }
 }

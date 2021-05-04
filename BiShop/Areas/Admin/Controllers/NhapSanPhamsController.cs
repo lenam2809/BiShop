@@ -22,6 +22,21 @@ namespace BiShop.Areas.Admin.Controllers
             return View(await db.NhapSanPhams.ToListAsync());
         }
 
+        // GET: Admin/NhapSanPhams/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<CTNhapSanPham> ctnhapSanPham = db.CTNhapSanPhams.Where(x=>x.MaNhap==id).ToList();
+            if (ctnhapSanPham == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ctnhapSanPham);
+        }
+
         // GET: Admin/NhapSanPhams/Create
         public ActionResult Create()
         {
@@ -33,7 +48,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MaSP,NgayNhap,SoLuong,GiaNhap")] NhapSanPham nhapSanPham)
+        public async Task<ActionResult> Create([Bind(Include = "Id,NgayNhap,MaNCC,MaNV")] NhapSanPham nhapSanPham)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +80,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MaSP,NgayNhap,SoLuong,GiaNhap")] NhapSanPham nhapSanPham)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,NgayNhap,MaNCC,MaNV")] NhapSanPham nhapSanPham)
         {
             if (ModelState.IsValid)
             {
@@ -74,33 +89,7 @@ namespace BiShop.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(nhapSanPham);
-        }
-
-        // GET: Admin/NhapSanPhams/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NhapSanPham nhapSanPham = await db.NhapSanPhams.FindAsync(id);
-            if (nhapSanPham == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhapSanPham);
-        }
-
-        // POST: Admin/NhapSanPhams/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            NhapSanPham nhapSanPham = await db.NhapSanPhams.FindAsync(id);
-            db.NhapSanPhams.Remove(nhapSanPham);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        } 
 
         protected override void Dispose(bool disposing)
         {

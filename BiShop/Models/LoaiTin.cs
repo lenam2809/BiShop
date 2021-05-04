@@ -22,10 +22,11 @@ namespace BiShop.Models
         }
     
         [Key]
+        [Display(Name = "Mã tin")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập tên loại tin")]
-        [Display(Name = "Tên loại tin")]
+        [Display(Name = "Tên lại tin")]
         public string TenLoaiTin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

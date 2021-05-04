@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dd552adc3d0f4dc8b60b27e0e7bfed5f" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="DbBiLuxuryModel.Account" Width="1.5" PointX="3.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.CTDonHang" Width="1.5" PointX="10.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.CTNhapSanPham" Width="1.5" PointX="10.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.DonHang" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.Img" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.KHACHHANG" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.KhuyenMai" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.LoaiSanPham" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.LoaiTin" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.NCC" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.NhapSanPham" Width="1.5" PointX="8.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.Review" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.SanPham" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.Search" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.Ship" Width="1.5" PointX="6" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.TinTuc" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_KHACHHANG_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_CTDonHang_DonHang" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_CTDonHang_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_CTNhapSanPham_NhapSanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_CTNhapSanPham_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_DonHang_KHACHHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_DonHang_Ship" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_Review_KHACHHANG" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_LoaiSanPham_KhuyenMai" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_SanPham_LoaiSanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_TinTuc_LoaiSanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_TinTuc_LoaiTin" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_SanPham_NCC" ManuallyRouted="false" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_Review_SanPham" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

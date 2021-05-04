@@ -55,11 +55,15 @@
                                 @foreach (var item in Model)
                                 {
                                     <ul class="checkout__total__products">
-                                        <li>@item.SanPham.TenSP <span>@item.SanPham.Gia</span></li>
+                                        @{
+                                            var gia = string.Format("{0}.000", item.TongTien.ToString());
+          
+                                        }
+                                        <li>@item.SanPhamViewModel.sanPham.TenSP <span>@gia &#8363;</span></li>
                                     </ul>
                                 }
                                 <ul class="checkout__total__all">
-                                    <li>Tổng <span>$750.99</span></li>
+                                    <li>Tổng <span>@ViewBag.Tongtien</span></li>
                                 </ul>
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -77,7 +81,7 @@
                                 <hr />
                                 <div class="row">
                                     <div class="col">
-                                        <button id="btnThanhToan" style="width: 100%;" type="button" class="btn btn-outline-success">Thanh toán</button>
+                                        <button id="btnThanhToan" style="width: 100%;" type="submit" class="btn btn-outline-success">Thanh toán</button>
                                     </div>
                                     <div class="col">
                                         <button style="width: 100%;" type="button" class="btn btn-outline-success"><i class="fab fa-paypal"></i> Paypal</button>
@@ -108,11 +112,11 @@
 
 
 @section scripts {
-    <script>
+    @*<script>
         $(document).ready(function () {
             $("#btnThanhToan").click(function () {
                 alert("Thanh toán thành công!");
             });
         });
-    </script>
+    </script>*@
 }

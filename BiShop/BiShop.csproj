@@ -66,6 +66,9 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -142,8 +145,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaoCaoThongKeController.cs" />
     <Compile Include="Areas\Admin\Controllers\CTDonHangsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\DonHangsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KHACHHANGsController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhuyenMaisController.cs" />
@@ -159,7 +162,6 @@
     <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LichSuGiaoDichController.cs" />
     <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -168,71 +170,79 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnhSP.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\Cart.cs" />
+    <Compile Include="Models\Blogs.cs" />
     <Compile Include="Models\CTDonHang.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTNhapSanPham.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DonHang.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Img.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KHACHHANG.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KhuyenMai.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoaiSanPham.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoaiTin.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\LSThanhToan.cs" />
-    <Compile Include="Models\ModelBiLuxury.Context.cs">
+    <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBiLuxury.Context.tt</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelBiLuxury.cs">
+    <Compile Include="Models\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelBiLuxury.Designer.cs">
+    <Compile Include="Models\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelBiLuxury.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\NCC.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NhapSanPham.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Review.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SanPham.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Search.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\SearchResult.cs" />
     <Compile Include="Models\Ship.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Shops.cs" />
     <Compile Include="Models\TinTuc.cs">
-      <DependentUpon>ModelBiLuxury.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\BaoCao.cs" />
+    <Compile Include="ViewModel\BaoCaoNhap.cs" />
+    <Compile Include="ViewModel\Cart.cs" />
+    <Compile Include="ViewModel\HoaDon.cs" />
+    <Compile Include="ViewModel\LSThanhToan.cs" />
+    <Compile Include="ViewModel\ReviewModel.cs" />
+    <Compile Include="ViewModel\SanPhamViewModel.cs" />
+    <Compile Include="ViewModel\SearchProducts.cs" />
+    <Compile Include="ViewModel\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Account.cs" />
   </ItemGroup>
@@ -2182,11 +2192,13 @@
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\elegant-icons.css" />
     <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\jquery-ui.css" />
     <Content Include="assets\css\magnific-popup.css" />
     <Content Include="assets\css\nice-select.css" />
     <Content Include="assets\css\owl.carousel.min.css" />
     <Content Include="assets\css\slicknav.min.css" />
     <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\StylePartialHoaDon.css" />
     <Content Include="assets\fonts\ElegantIcons.svg" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\img\about\about-us.jpg" />
@@ -2211,29 +2223,18 @@
     <Content Include="assets\img\blog\details\blog-author.jpg" />
     <Content Include="assets\img\blog\details\blog-details.jpg" />
     <Content Include="assets\img\breadcrumb-bg.jpg" />
-    <Content Include="assets\img\clients\client-1.png" />
-    <Content Include="assets\img\clients\client-2.png" />
-    <Content Include="assets\img\clients\client-3.png" />
-    <Content Include="assets\img\clients\client-4.png" />
-    <Content Include="assets\img\clients\client-5.png" />
-    <Content Include="assets\img\clients\client-6.png" />
-    <Content Include="assets\img\clients\client-7.png" />
-    <Content Include="assets\img\clients\client-8.png" />
     <Content Include="assets\img\footer-logo.png" />
     <Content Include="assets\img\hero\hero-1.jpg" />
     <Content Include="assets\img\hero\hero-2.jpg" />
     <Content Include="assets\img\icon\calendar.png" />
-    <Content Include="assets\img\icon\cart.png" />
-    <Content Include="assets\img\icon\compare.png" />
-    <Content Include="assets\img\icon\heart.png" />
-    <Content Include="assets\img\icon\search.png" />
     <Content Include="assets\img\instagram\instagram-1.jpg" />
     <Content Include="assets\img\instagram\instagram-2.jpg" />
     <Content Include="assets\img\instagram\instagram-3.jpg" />
     <Content Include="assets\img\instagram\instagram-4.jpg" />
     <Content Include="assets\img\instagram\instagram-5.jpg" />
     <Content Include="assets\img\instagram\instagram-6.jpg" />
-    <Content Include="assets\img\logo.png" />
+    <Content Include="assets\img\PartialHoaDon\cart.jpg" />
+    <Content Include="assets\img\PartialHoaDon\chu-ky-dep-ten-tram-1.png" />
     <Content Include="assets\img\payment.png" />
     <Content Include="assets\img\product-sale.png" />
     <Content Include="assets\img\product\product-1.jpg" />
@@ -2266,6 +2267,7 @@
     <Content Include="assets\img\theme_hstatic_net-logo.png" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\jquery-3.3.1.min.js" />
+    <Content Include="assets\js\jquery-ui.js" />
     <Content Include="assets\js\jquery.countdown.min.js" />
     <Content Include="assets\js\jquery.magnific-popup.min.js" />
     <Content Include="assets\js\jquery.nice-select.min.js" />
@@ -2274,6 +2276,8 @@
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\mixitup.min.js" />
     <Content Include="assets\js\owl.carousel.min.js" />
+    <Content Include="assets\Toastr\toastr.js" />
+    <Content Include="assets\Toastr\toastrCss.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -2284,16 +2288,20 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ModelBiLuxury.Context.tt">
+    <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelBiLuxury.Context.cs</LastGenOutput>
-      <DependentUpon>ModelBiLuxury.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelBiLuxury.tt">
+    <Content Include="Models\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelBiLuxury.edmx</DependentUpon>
-      <LastGenOutput>ModelBiLuxury.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -2311,13 +2319,6 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
-    <EntityDeploy Include="Models\ModelBiLuxury.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelBiLuxury.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ModelBiLuxury.edmx.diagram">
-      <DependentUpon>ModelBiLuxury.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\assets\css\fullcalendar-3.9.0\demos\json\events.json" />
     <Content Include="Areas\assets\css\lightgallery\fonts\lgd41d.eot" />
     <Content Include="Areas\assets\css\lightgallery\fonts\lgd641.eot" />
@@ -2420,15 +2421,7 @@
     <Content Include="Areas\Admin\Views\Ships\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Reviews\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Reviews\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\NhapSanPhams\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\NhapSanPhams\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\NhapSanPhams\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\NhapSanPhams\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuyenMais\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuyenMais\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuyenMais\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuyenMais\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\AdminManagement\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminManagement\LoginAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\AdminManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DonHangs\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\DonHangs\Edit.cshtml" />
@@ -2474,6 +2467,29 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\Admin\Views\Shared\Sidebar.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Views\KhuyenMais\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\KhuyenMais\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\KhuyenMais\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\KhuyenMais\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapSanPhams\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapSanPhams\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapSanPhams\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapSanPhams\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoThongKe\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoThongKe\BaoCaoXuat.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoThongKe\BaoCaoNhap.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Notification.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Inbox.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoThongKe\BaoCaoTon.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2557,6 +2573,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Upload\bv3.jpg" />
+    <Content Include="Upload\heidi-fin-2TLREZi7BUg-unsplash.jpg" />
+    <Content Include="Upload\img_avatar.png" />
     <Content Include="Upload\s9.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2582,10 +2600,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\ListPartial\_Feedback.cshtml" />
-    <Content Include="Views\Offer\Index.cshtml" />
-    <Content Include="Views\Product\DetailProduct.cshtml" />
-    <Content Include="Views\Product\ListProduct.cshtml" />
     <Content Include="Views\Blogs\Index.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\ShopDetail.cshtml" />
@@ -2598,11 +2612,15 @@
     <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Cart\CartPartial.cshtml" />
     <Content Include="Views\Search\SeachInClient.cshtml" />
+    <Content Include="Views\Home\LichSuThanhToan.cshtml" />
+    <Content Include="Views\Home\ChiTietDH.cshtml" />
+    <Content Include="Views\ListPartial\_HoaDon.cshtml" />
+    <Content Include="Views\Home\XemHoaDon.cshtml" />
+    <Content Include="Views\Shop\Seach.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Views\LichSuGiaoDich\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

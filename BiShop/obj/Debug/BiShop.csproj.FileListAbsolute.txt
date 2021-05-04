@@ -149,6 +149,7 @@ C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\Microsoft.Web.Infrastructure.d
 C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\Newtonsoft.Json.dll
 C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\PagedList.dll
 C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\PagedList.Mvc.dll
+C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\Rotativa.dll
 C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\System.Web.Helpers.dll
 C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\System.Web.Mvc.dll
 C:\Users\Admin\Desktop\FrontEnd\BiShop\BiShop\bin\System.Web.Optimization.dll
