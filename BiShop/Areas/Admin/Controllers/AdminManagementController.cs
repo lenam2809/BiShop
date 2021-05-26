@@ -1,4 +1,5 @@
 ﻿using BiShop.Models;
+using BiShop.ViewModel;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System;
@@ -37,6 +38,12 @@ namespace BiShop.Areas.Admin.Controllers
 
             ViewBag.DoanhThu12Thang = JsonConvert.SerializeObject(DoanhThu12Thang(DateTime.Today));
             ViewBag.ChiPhi12Thang = JsonConvert.SerializeObject(ChiPhi12Thang(DateTime.Today));
+
+            BaocaoTongQuan bc = new BaocaoTongQuan();
+            var sp = bc.sanPhamNoiBat;
+            ViewBag.tensp = sp.TenSP;
+            ViewBag.spnbImg = sp.LinkAnh;
+            ViewBag.spnbISL = bc.SLsanPhamNoiBat;
 
             return View();       
         }

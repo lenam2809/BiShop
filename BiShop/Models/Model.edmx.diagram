@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="DbBiLuxuryModel.LoaiTin" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DbBiLuxuryModel.NCC" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DbBiLuxuryModel.NhapSanPham" Width="1.5" PointX="8.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbBiLuxuryModel.Review" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DbBiLuxuryModel.SanPham" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DbBiLuxuryModel.Search" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbBiLuxuryModel.Ship" Width="1.5" PointX="6" PointY="14.75" IsExpanded="true" />
@@ -28,13 +27,14 @@
         <AssociationConnector Association="DbBiLuxuryModel.FK_CTNhapSanPham_SanPham" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_DonHang_KHACHHANG" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_DonHang_Ship" ManuallyRouted="false" />
-        <AssociationConnector Association="DbBiLuxuryModel.FK_Review_KHACHHANG" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_LoaiSanPham_KhuyenMai" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_SanPham_LoaiSanPham" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_TinTuc_LoaiSanPham" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_TinTuc_LoaiTin" ManuallyRouted="false" />
         <AssociationConnector Association="DbBiLuxuryModel.FK_SanPham_NCC" ManuallyRouted="false" />
-        <AssociationConnector Association="DbBiLuxuryModel.FK_Review_SanPham" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DbBiLuxuryModel.Review" Width="1.5" PointX="11.25" PointY="9.5" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_Review_KHACHHANG" />
+        <AssociationConnector Association="DbBiLuxuryModel.FK_Review_SanPham" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

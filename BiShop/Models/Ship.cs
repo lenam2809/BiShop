@@ -20,7 +20,7 @@ namespace BiShop.Models
         {
             this.DonHangs = new HashSet<DonHang>();
         }
-    
+
         [Key]
         [Display(Name = "Mã đơn vị giao hàng")]
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace BiShop.Models
         [Required(ErrorMessage = "Bạn hãy nhập tên đơn vị giao hàng")]
         [Display(Name = "Tên đơn vị giao hàng")]
         public string ShipName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
     }

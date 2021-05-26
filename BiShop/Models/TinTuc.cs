@@ -43,7 +43,6 @@ namespace BiShop.Models
         public Nullable<int> LuotXem { get; set; }
 
         public Nullable<int> LoaiSP { get; set; }
-
         public Nullable<int> MaLoaiTin { get; set; }
     
         public virtual LoaiSanPham LoaiSanPham { get; set; }

@@ -22,7 +22,7 @@ namespace BiShop.Models
             this.CTNhapSanPhams = new HashSet<CTNhapSanPham>();
             this.Reviews = new HashSet<Review>();
         }
-    
+
         [Key]
         [Display(Name = "Mã sản phẩm")]
         public int MaSP { get; set; }
@@ -37,11 +37,11 @@ namespace BiShop.Models
         public Nullable<int> Gia { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập chất liệu")]
-        [Display(Name = "Chất liệu")]
+        [Display(Name = "Mô tả")]
         public string ChatLieu { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập kiểu dáng")]
-        [Display(Name = "Kiểu dáng")]
+        [Display(Name = "Thôn tin thêm")]
         public string KieuDang { get; set; }
 
         [Display(Name = "Ảnh")]
@@ -54,7 +54,6 @@ namespace BiShop.Models
         public Nullable<bool> IsDelete { get; set; }
 
         public Nullable<int> MaNCC { get; set; }
-
         public Nullable<int> MaLSP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

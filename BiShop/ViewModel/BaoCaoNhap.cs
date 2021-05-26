@@ -10,6 +10,14 @@ namespace BiShop.ViewModel
     {
         public CTNhapSanPham getCTNhapSanPham { get; set; }
 
+        public string LSP
+        {
+            get
+            {
+                return getCTNhapSanPham.SanPham.LoaiSanPham.TenLoai;
+            }
+        }
+
         public string TenSP
         {
             get

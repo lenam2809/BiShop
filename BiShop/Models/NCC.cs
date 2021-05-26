@@ -20,7 +20,7 @@ namespace BiShop.Models
         {
             this.SanPhams = new HashSet<SanPham>();
         }
-    
+
         [Key]
         [Display(Name = "Mã nhà cung cấp")]
         public int Id { get; set; }
@@ -32,7 +32,7 @@ namespace BiShop.Models
         [Required(ErrorMessage = "Bạn hãy nhập mô tả")]
         [Display(Name = "Mô tả")]
         public string MoTa { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }

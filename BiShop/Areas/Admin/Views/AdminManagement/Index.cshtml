@@ -4,13 +4,13 @@
 <!--Dashboard widget-->
 <div class="mt-1 mb-3 button-container">
     <div class="row pl-0">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+        <div class="col-lg-6 col-md-4 col-sm-6 col-12 mb-3">
             <div class="bg-white border shadow">
                 <div class="media p-4">
                     <div class="align-self-center mr-3 rounded-circle notify-icon bg-theme">
                         <i class="fas fa-money-check-alt"></i>
                     </div>
-                    <div class="media-body pl-2">                       
+                    <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong>@ViewBag.TongDoanhThuTrongNgay</strong></h3>
                         <p><small class="text-muted bc-description">Tổng doanh thu</small></p>
                     </div>
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+        <div class="col-lg-6 col-md-4 col-sm-6 col-12 mb-3">
             <div class="bg-white border shadow">
                 <div class="media p-4">
                     <div class="align-self-center mr-3 rounded-circle notify-icon bg-danger">
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+        <div class="col-lg-6 col-md-4 col-sm-6 col-12 mb-3">
             <div class="bg-theme border shadow">
                 <div class="media p-4">
                     <div class="align-self-center mr-3 rounded-circle notify-icon bg-white">
@@ -40,7 +40,21 @@
                     </div>
                     <div class="media-body pl-2">
                         <h3 class="mt-0 mb-0"><strong>@ViewBag.SanPhamXuatTrongNgay</strong></h3>
-                        <p><small class="bc-description text-white">Sản phẩm xuất thành công</small></p>
+                        <p><small class="bc-description text-white">Tổng số sản phẩm xuất thành công</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-4 col-sm-6 col-12 mb-3">
+            <div class="bg-info border shadow">
+                <div class="media p-4">
+                    <div class="align-self-center mr-3 rounded-circle notify-icon bg-white">
+                        <i class="fa fa-tags text-theme"></i>
+                    </div>
+                    <div class="media-body pl-2">
+                        <h3 class="mt-0 mb-0"><strong>@ApplicationInstance.Application["Totaluser"]</strong></h3>
+                        <p><small class="bc-description text-white">Khách hàng đang truy cập</small></p>
                     </div>
                 </div>
             </div>
@@ -92,6 +106,15 @@
     </div>
 
     <canvas id="orderRevenue" class="orderRevenue pt-1" height="100px"></canvas>
+
+    <div class="card">
+        <div class="card-body text-center">
+            <h3 class="text-center">Sản phẩm nổi bật</h3>
+            <img src="@ViewBag.spnbImg" class="img-fluid p-4" width="300" alt="Alternate Text" />
+            <p class="text-center">Tên sản phẩm: @ViewBag.tensp</p>
+            <p class="text-center">Số lượng đã bán: @ViewBag.spnbISL</p>
+        </div>
+    </div>
 </div>
 <!--Chart Section-->
 

@@ -34,6 +34,7 @@ namespace BiShop.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Id = id;
             return View(ctnhapSanPham);
         }
 
@@ -54,9 +55,8 @@ namespace BiShop.Areas.Admin.Controllers
             {
                 db.NhapSanPhams.Add(nhapSanPham);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("CreateCT", "NhapSanPhams", new { manhap = nhapSanPham.Id });
             }
-
             return View(nhapSanPham);
         }
 
@@ -89,7 +89,29 @@ namespace BiShop.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             return View(nhapSanPham);
-        } 
+        }
+
+        public ActionResult CreateCT(int manhap)
+        {
+            ViewBag.MaNhap = manhap;
+            return View();
+        }
+
+        // POST: Admin/NhapSanPhams/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateCT([Bind(Include = "MaNhap,MaSP,SoLuong,GiaNhap")] CTNhapSanPham cTNhapSanPham)
+        {
+            if (ModelState.IsValid)
+            {
+                db.CTNhapSanPhams.Add(cTNhapSanPham);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "NhapSanPhams", new { id = cTNhapSanPham.MaNhap });
+            }
+            return View(cTNhapSanPham);
+        }
 
         protected override void Dispose(bool disposing)
         {

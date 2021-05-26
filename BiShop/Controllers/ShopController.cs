@@ -4,8 +4,8 @@ using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace BiShop.Controllers
 {
@@ -13,18 +13,18 @@ namespace BiShop.Controllers
     {
         private DbBiLuxuryEntities db = new DbBiLuxuryEntities();
         // GET: Shop
-        public ActionResult Index(int? id, int? gia, int? page, int pageSize = 12, int sort = 1)
+        public ActionResult Index(int? id, int? page, int pageSize = 12, int sort = 1)
         {
             SearchProducts searchProducts = new SearchProducts();
             List<SanPhamViewModel> sanPhamViewModels = new List<SanPhamViewModel>();
 
             var sanpham = db.SanPhams.ToList();
-            foreach(var item in sanpham)
+            foreach (var item in sanpham)
             {
                 SanPhamViewModel sanPhamViewModel = new SanPhamViewModel();
                 sanPhamViewModel.sanPham = item;
                 sanPhamViewModels.Add(sanPhamViewModel);
-            }    
+            }
             searchProducts.sanPhams = sanPhamViewModels;
 
             switch (sort)
@@ -45,33 +45,6 @@ namespace BiShop.Controllers
                 searchProducts.sanPhams = sanPhamViewModels.Where(x => x.sanPham.MaLSP == id).ToList();
             }
 
-            if (gia != null)
-            {
-                switch(gia)
-                {
-                    case 1:
-                        searchProducts.sanPhams = sanPhamViewModels.Where(x => x.Discount <= 100).ToList();
-                        break;
-                    case 2:
-                        searchProducts.sanPhams = sanPhamViewModels.Where(x => x.Discount <= 200 && x.Discount > 100).ToList();
-                        break;
-                    case 3:
-                        searchProducts.sanPhams = sanPhamViewModels.Where(x => x.Discount <= 300 && x.Discount > 200).ToList();
-                        break;
-                    case 5:
-                        searchProducts.sanPhams = sanPhamViewModels.Where(x => x.Discount <= 500 && x.Discount > 300).ToList();
-                        break;
-                    case 10:
-                        searchProducts.sanPhams = sanPhamViewModels.Where(x => x.Discount <= 1000 && x.Discount > 500).ToList();
-                        break;
-                    default:
-                        searchProducts.sanPhams = sanPhamViewModels.Where(x =>x.Discount > 1000).ToList();
-                        break;
-                }              
-            }
-
-            searchProducts.Count = sanPhamViewModels.Count;
-
             ViewBag.lsp = Shops.getLoaiSanPham();
 
             ViewBag.ncc = Shops.getNCC();
@@ -79,7 +52,7 @@ namespace BiShop.Controllers
             if (page == null) page = 1;
             int pageNumber = (page ?? 1);
             ViewBag.count = searchProducts.Count;
-            return View( searchProducts.sanPhams.ToPagedList(pageNumber, pageSize));
+            return View(searchProducts.sanPhams.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult ShopDetail(int? id)
@@ -94,11 +67,12 @@ namespace BiShop.Controllers
                 ViewBag.img1 = img.Link2;
                 ViewBag.img2 = img.Link3;
                 ViewBag.img3 = img.Link4;
-            } else
+            }
+            else
             {
-                ViewBag.img1 = "/assets/img/shop-details/thumb-1.png";
+                ViewBag.img3 = "/Areas/assets/img/demo-size.jpg";
                 ViewBag.img2 = "/assets/img/shop-details/thumb-2.png";
-                ViewBag.img3 = "/assets/img/shop-details/thumb-3.png";
+                ViewBag.img1 = "/assets/img/shop-details/thumb-3.png";
             }
 
             var review = db.Reviews.Where(x => x.MaSP == id).ToList();
@@ -129,16 +103,18 @@ namespace BiShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Comment(string comment, int masp, int makh)
+        public JsonResult Comment(string comment, string masp, string makh)
         {
+            JsonResult json = new JsonResult();
             Review review = new Review();
-            review.MaSP = masp;
-            review.MaKH = makh;
+            review.MaSP = Convert.ToInt32(masp);
+            review.MaKH = Convert.ToInt32(makh);
             review.NoiDung = comment;
             review.NgayTao = DateTime.Now;
             db.Reviews.Add(review);
             db.SaveChanges();
-            return RedirectToAction("ShopDetail","Shop", new { id = masp });
+            json.Data = new { Success = true }; 
+            return json;
         }
 
         public JsonResult ListName(string term)
@@ -177,5 +153,70 @@ namespace BiShop.Controllers
             ViewBag.time = $"{watch.ElapsedMilliseconds} ms";
             return View(infoAdd);
         }
+
+        #region LocSanPham
+        public ActionResult LocSanPham( string lspStr = "0", string gia = "0", int page = 0, int pageSize = 12)
+        {
+            List<SanPham> sanPhams = new List<SanPham>();
+            List<SanPham> sanPhams1 = new List<SanPham>();
+            List<SanPham> sanPhams2 = new List<SanPham>();
+
+            if (lspStr != "0")
+            {
+                int lsp = Convert.ToInt32(lspStr);
+                sanPhams1.AddRange(db.SanPhams.Where(x => x.MaLSP == lsp).ToList());
+            } 
+            
+            if(gia != "0")
+            {
+                string[] arrListStr = gia.Split(':');
+                int giaLow = Convert.ToInt32(arrListStr[0]);
+                int giaHigh = Convert.ToInt32(arrListStr[1]);
+                sanPhams2.AddRange(sanPhams1.Where(x => x.Gia > giaLow && x.Gia < giaHigh).ToList());
+            }
+
+            if(lspStr != "0")
+            {
+                if (gia != "0")
+                {
+                    sanPhams = sanPhams2;
+                }
+                else if (gia == "0")
+                {
+                    sanPhams = sanPhams1;
+                }
+            } else if(lspStr == "0")
+            {
+                if (gia != "0")
+                {
+                    string[] arrListStr = gia.Split(':');
+                    int giaLow = Convert.ToInt32(arrListStr[0]);
+                    int giaHigh = Convert.ToInt32(arrListStr[1]);
+                    sanPhams.AddRange(db.SanPhams.Where(x => x.Gia >= giaLow && x.Gia < giaHigh).ToList());
+                }
+                else if (gia == "0")
+                {
+                    sanPhams = db.SanPhams.ToList();
+                }
+            } 
+
+            SearchProducts searchProducts = new SearchProducts();
+            List<SanPhamViewModel> sanPhamViewModels = new List<SanPhamViewModel>();
+            foreach (var item in sanPhams)
+            {
+                SanPhamViewModel sanPhamViewModel = new SanPhamViewModel();
+                sanPhamViewModel.sanPham = item;
+                sanPhamViewModels.Add(sanPhamViewModel);
+            }
+            searchProducts.sanPhams = sanPhamViewModels;
+
+            ViewBag.lsp = Shops.getLoaiSanPham();
+            ViewBag.ncc = Shops.getNCC();
+            ViewBag.count = sanPhams.Count;
+            if (page == 0) page = 1;
+            int pageNumber = page == 0 ? 1 : page;
+            return View("Index", searchProducts.sanPhams.ToPagedList(pageNumber, pageSize));
+        }
+        #endregion
     }
 }

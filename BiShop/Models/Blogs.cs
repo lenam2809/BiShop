@@ -19,9 +19,5 @@ namespace BiShop.Models
             return data.TinTucs.Where(x => x.MaLoaiTin == id).ToList();
         }
 
-        public static TinTuc tinTucDetail(int id)
-        {
-            return data.TinTucs.FirstOrDefault(x => x.Id == id);
-        }
     }
 }

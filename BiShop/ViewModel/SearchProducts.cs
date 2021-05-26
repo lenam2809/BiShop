@@ -10,7 +10,13 @@ namespace BiShop.ViewModel
     {
         public List<SanPhamViewModel> sanPhams { get; set; }
 
-        public int Count { get; set; }
+        public int Count 
+        { 
+            get
+            {
+                return sanPhams.Count;
+            }
+        }
 
     }
 }

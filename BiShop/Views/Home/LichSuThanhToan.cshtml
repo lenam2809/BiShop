@@ -24,12 +24,7 @@ else
                     <div class="col-sm-4 text-right pb-3">
 
                         <div class="pull-right mr-3 btn-order-bulk">
-                            <select class="shadow bg-secondary bulk-actions">
-                                <option value="0" data-display="<span class='text-white'><b>Tất cả đơn hàng</b></span>">Tất cả đơn hàng</option>
-                                <option value="1">Đơn mới</option>
-                                <option value="2">Đơn hủy</option>
-                                <option value="3">Đơn đang giao</option>
-                                <option value="4">Đơn hoàn thành</option>
+                            <select class="shadow bg-secondary bulk-actions" data-bind="options: availableCountries, optionsText: 'statusName', optionsValue: 'statusVal',value: selectedCountry, optionsCaption: 'Tất cả đơn hàng'">
                             </select>
                         </div>
 
@@ -113,4 +108,24 @@ else
         </div>
     </div>
 }
+
+@section scripts {
+    <script>
+        var Status = function (name, status) {
+            this.statusName = name;
+            this.statusVal = status;
+        };
+
+        var viewModel = function() {
+            this.availableCountries = ko.observableArray([
+                new Status("Đơn hoàn thành", 1),
+                new Status("Đơn hủy", 2),
+                new Status("Đơn mới", 3),
+                new Status("Đơn đang giao", 4)
+            ]),
+                this.selectedCountry = ko.observable();
+        };
+        ko.applyBindings(new viewModel());
+    </script>
+    }
 

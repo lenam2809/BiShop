@@ -25,13 +25,13 @@ namespace BiShop.Areas.Admin.Controllers
 
 
         // GET: Admin/Reviews/Delete/5
-        public async Task<ActionResult> Delete(int? id1, int? id2)
+        public async Task<ActionResult> Delete(int? id)
         {
-            if (id1 == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Review review = await db.Reviews.FirstOrDefaultAsync(x=>x.MaKH==id1 && x.MaSP==id2);
+            Review review = await db.Reviews.FirstOrDefaultAsync(x=>x.Id==id);
             if (review == null)
             {
                 return HttpNotFound();
@@ -42,9 +42,9 @@ namespace BiShop.Areas.Admin.Controllers
         // POST: Admin/Reviews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id1, int id2)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
-            Review review = await db.Reviews.FirstOrDefaultAsync(x => x.MaSP == id2 && x.MaKH == id1);
+            Review review = await db.Reviews.FirstOrDefaultAsync(x => x.Id == id);
             db.Reviews.Remove(review);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

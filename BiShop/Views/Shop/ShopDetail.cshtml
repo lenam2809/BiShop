@@ -44,7 +44,7 @@
             }
 
     .quantity button:hover {
-        box-shadow: 5px 10px brown;
+        box-shadow: 3px 3px brown;
     }
 
 </style>
@@ -138,28 +138,30 @@
                                 <span>Size:</span>
                                 <label for="xxl">
                                     xxl
-                                    <input type="radio" value="xxl" id="xxl">
+                                    <input type="radio" name="size" value="xxl" id="xxl">
                                 </label>
                                 <label class="active" for="xl">
                                     xl
-                                    <input type="radio" value="xl" id="xl">
+                                    <input type="radio" name="size" value="xl" id="xl">
                                 </label>
                                 <label for="l">
                                     l
-                                    <input type="radio" value="l" id="l">
+                                    <input type="radio" name="size" value="l" id="l">
                                 </label>
-                                <label for="sm">
+                                <label for="s">
                                     s
-                                    <input type="radio" value="sm" id="sm">
+                                    <input type="radio" name="size" value="s" id="s">
                                 </label>
+                                <input type="hidden" id="txtSize" />
                             </div>
                         </div>
                         <div class="product__details__cart__option">
-                            <div class="quantity">
-                                <div class="pro-qty-new">
-                                    <input id="number" type="text" value="1" min="1">
-                                </div>
+                            <div class="text-center">
+                                <button id="minusSoLuong" class="btn btn-dark"><i class="fas fa-minus"></i></button>
+                                <input  class="btn btn-outline-dark" id="number" value="1" type="text">
+                                <button id="plusSoLuong" class="btn btn-dark"><i class="fas fa-plus"></i></button>
                             </div>
+                            <br />
                             <button id="btnAddItem" class="primary-btn">Thêm vào giỏ hàng</button>
                         </div>
                         <div class="product__details__last__option">
@@ -168,7 +170,9 @@
                             <ul>
                                 <li><span>Mã:</span> @Model.sanPham.MaSP</li>
                                 <li><span>Loại:</span> @Model.sanPham.LoaiSanPham.TenLoai</li>
+                                <li><span>Còn lại:</span> @Model.sanPham.SoLuong sản phẩm</li>
                             </ul>
+                            <input id="slCon" type="hidden" value="@Model.sanPham.SoLuong" />
                         </div>
                     </div>
                 </div>
@@ -201,35 +205,36 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-6" role="tabpanel">
-                                <div class="tab-pane fade show active p-3" id="custom-home" role="tabpanel" aria-labelledby="nav-home">
-                                    <!--Single feed-->
-                                    @foreach (var item in ViewBag.review)
-                                    {
+                                <div class="tab-pane fade show active p-3" role="tabpanel" aria-labelledby="nav-home">
+                                    <div id="custom-home" >
                                         <!--Single feed-->
-                                        <div class="feed-single mb-3">
-                                            <div class="media">
-                                                <img class="mr-3 rounded-circle" height="40px" width="40px" src="@item.PhoToCustomer" alt="Generic placeholder image">
-                                                <div class="media-body">
-                                                    <h6 class="mt-1">
-                                                        @item.TenCustomer
-                                                        <small class="text-muted pl-3"><i class="fa fa-clock"></i> @item.ThoiGian</small>
+                                        @foreach (var item in ViewBag.review)
+                                        {
+                                            <div class="feed-single mb-3">
+                                                <div class="media">
+                                                    <img class="mr-3 rounded-circle" height="40" width="40" src="@item.PhoToCustomer" alt="Generic placeholder image">
+                                                    <div class="media-body">
+                                                        <h6 class="mt-1">
+                                                            @item.TenCustomer
+                                                            <small class="text-muted pl-3"><i class="fa fa-clock"></i> @item.ThoiGian</small>
 
-                                                        <p class="clearfix"></p>
-                                                    </h6>
+                                                            <p class="clearfix"></p>
+                                                        </h6>
 
-                                                    <p>@item.NoiDung</p>
+                                                        <p>@item.NoiDung</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                         <!--/Single feed-->
-                                    }
-                                    <!--/Single feed-->
+                                    </div>
+
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <!--Single feed-->
                                         <div class="feed-single mb-3">
                                             <div class="media">
-                                                <img class="mr-3 rounded-circle" height="40px" width="40px" src="~/Areas/assets/img/John-doe.png" alt="Generic placeholder image">
+                                                <img class="mr-3 rounded-circle" height="40" width="40" src="@Session["Photo"]" alt="Generic placeholder image">
                                                 <div class="media-body">
                                                     <h6 class="mt-1">
                                                         @(User.Identity.IsAuthenticated ? Session["Name"] : "Guest")
@@ -237,15 +242,15 @@
                                                     </h6>
 
                                                     <div class="form-floating">
-                                                        <form action="/Shop/Comment" method="post" enctype="multipart/form-data">
+                                                        <form id="commentForm">
                                                             <div class="row">
                                                                 <input style="display: none;" name="masp" value="@Model.sanPham.MaSP" />
                                                                 <input style="display: none;" name="makh" value="@Session["Id"]" />
                                                                 <div class="col-md-4">
-                                                                    <input type="text" class="form-control" placeholder="Comment..." name="comment" />
+                                                                    <input id="comment" type="text" class="form-control" placeholder="Comment..." name="comment" />
                                                                 </div>
                                                                 <div class="col-md-2">
-                                                                    <button type="submit" class="btn btn-danger">Comment</button>
+                                                                    <button id="btnComment" type="button" class="btn btn-danger">Comment</button>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -254,6 +259,10 @@
                                             </div>
                                         </div>
                                         <!--/Single feed-->
+                                    }
+                                    else
+                                    {
+                                        <div class="justify-content-center">Vui lòng <a class="btn btn-outline-primary" href="/Home/Login">Đăng nhập</a> để review</div>
                                     }
                                 </div>
                             </div>
@@ -285,7 +294,7 @@
                 {
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <input id="masp" style="display: none" value="@spcungloai.sanPham.MaSP" />
+                            <input class="masp" style="display: none" value="@spcungloai.sanPham.MaSP" />
                             <div class="product__item__pic set-bg" data-setbg="@spcungloai.sanPham.LinkAnh">
                                 <ul class="product__hover">
                                     <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = spcungloai.sanPham.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
@@ -319,29 +328,60 @@
 <!-- Related Section End -->
 @section scripts {
     <script>
-        $('#btnAddItem').off('click').on('click', function () {
-                var msp = $('#masp').val();
-                var sl = $('#number').val();
-                window.location.href = '/Cart/AddItem/' + msp + '/' + sl;
+        $(document).ready(function () {
+            $("input[type='radio']").click(function () {
+                var radioValue = $("input[name='size']:checked").val();
+                if (radioValue) {
+                    $('#txtSize').val(radioValue);
+                }
+            });
+        });
+    </script>
+    <script>
+        var slCon = parseInt($('#slCon').val());
+        $('#minusSoLuong').click(function () {
+            var sl = parseInt($('#number').val());
+            if (sl > 1) {
+                $('#number').val(sl - 1);
+            }
         });
 
-        var proQty = $('.pro-qty-new');
-        proQty.prepend('<i class="fas fa-minus-square dec qtybtn"></i>');
-        proQty.append('<span class="fa fa-plus-square inc qtybtn"></span>');
-        proQty.on('click', '.qtybtn', function () {
-            var $button = $(this);
-            var oldValue = $button.parent().find('input').val();
-            if ($button.hasClass('inc')) {
-                var newVal = parseFloat(oldValue) + 1;
-            } else {
-                // Don't allow decrementing below zero
-                if (oldValue > 0) {
-                    var newVal = parseFloat(oldValue) - 1;
-                } else {
-                    newVal = 0;
-                }
+        $('#plusSoLuong').click(function () {
+            var sl = parseInt($('#number').val());
+            if (sl < slCon) {
+                $('#number').val(sl + 1);
             }
-            $button.parent().find('input').val(newVal);
+        });
+        
+        $('#btnAddItem').off('click').on('click', function () {
+            var msp = $('#masp').val();
+            var sl = parseInt($('#number').val());
+            if (slCon >= sl) {
+                window.location.href = '/Cart/AddItem/' + msp + '/' + sl;
+            } else if (slCon < sl) {
+                alert("Sản phẩm không đủ số lượng bạn đặt" + slCon + ' - ' + sl);
+            } else {
+                window.location.href = '/Cart/AddItem/' + msp + '/' + sl;
+            }
+        });
+    </script>
+    <script>
+        $('#btnComment').click(function () {
+            $.ajax({
+                url: "/Shop/Comment",
+                type: "post",
+                data: $('#commentForm').serialize(),              
+            }).done(function (res) {
+                if (res.Success)
+                {
+                    $('#comment').val("");
+                    $('#custom-home').load(location.href + ' #custom-home'); 
+                } else {
+                    alert("false")
+                }
+            }).fail(function () {
+                alert("error!")
+            });
         });
     </script>
     }

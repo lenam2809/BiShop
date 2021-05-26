@@ -1,6 +1,6 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
-    if (Session["Role"].ToString() == "admin")
+    if (Session["Role"].ToString() == "admin" || Session["Role"].ToString() == null)
     {
         <div class="sidebar-menu-container">
             <ul class="sidebar-menu mt-4 mb-4">
@@ -65,6 +65,8 @@
                         <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoXuat" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo xuất</a></li>
                         <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoNhap" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo nhập</a></li>
                         <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoTon" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo sản phẩm tồn</a></li>
+                        <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoTheoDanhMuc" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo theo danh mục sản phẩm</a></li>
+                        <li class="child"><a href="/Admin/BaoCaoThongKe/BaoCaoNhapTheoDanhMuc" class="ml-4"><i class="fa fa-angle-right mr-2"></i> Báo cáo nhập theo danh mục sản phẩm</a></li>
                     </ul>
                 </li>
             </ul>

@@ -5,12 +5,36 @@
 }
 
 
-<div class="text-right pb-3">
-    @using (Html.BeginForm("Export", "BaoCaoThongKe", FormMethod.Post))
-    {
-        <input type="hidden" name="GridHtml" />
-        <input class="btn btn-outline-theme" type="submit" id="btnSubmit" value="Export" />
-    }
+<div class="row container pb-3">
+    <div class="col-md-5">
+        @using (Html.BeginForm("Export", "BaoCaoThongKe", FormMethod.Post))
+        {
+            <input type="hidden" name="GridHtml" />
+            <input class="btn btn-outline-theme" type="submit" id="btnSubmit" value="Export" />
+        }
+    </div>
+    <div class="col-md-7">
+        @using (Html.BeginForm("BaoCaoXuat", "BaoCaoThongKe", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-1">
+                    <p>Từ ngày</p>
+                </div>
+                <div class="col-4">
+                    <input id="datePicker1" type="date" name="TuNgay" />
+                </div>
+                <div class="col-1">
+                    <p>Đến ngày</p>
+                </div>
+                <div class="col-4">
+                    <input id="datePicker2" type="date" name="DenNgay" />
+                </div>
+                <div class="col-2">
+                    <input class="btn btn-outline-success" type="submit" value="Tìm kiếm" />
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
 <div id="Grid" class="table-responsive product-list">
@@ -86,3 +110,18 @@
         });
     });
 </script>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var now = new Date();
+
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+            $('#datePicker1').val(today);
+            $('#datePicker2').val(today);
+        });
+    </script>
+}

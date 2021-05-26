@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Trang chủ";
     var category = ViewBag.category;
-    var spmois = ViewBag.top4product;
     var blogs = ViewBag.top3tintuc;
     var top4banchay = ViewBag.top4banchay;
     var top4sales = ViewBag.top4sales;
@@ -118,6 +117,7 @@
     </div>
 </section>
 <!-- Banner Section End -->
+
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
@@ -133,19 +133,19 @@
         </div>
         <div class="row product__filter">
             <!--Sản phẩm mới-->
-            @foreach (var spmoi in spmois)
+            @foreach (var spmoi in ViewBag.top4product)
             {
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="@spmoi.LinkAnh">
+                        <div class="product__item__pic set-bg" data-setbg="@spmoi.sanPham.LinkAnh">
                             <span class="label">New</span>
                             <ul class="product__hover">
-                                <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = spmoi.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
+                                <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = spmoi.sanPham.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6>@spmoi.TenSP</h6>
-                            <a href="@Url.Action("ShopDetail", "Shop", new { id = spmoi.MaSP })" class="add-cart">Xem thêm</a>
+                            <h6>@spmoi.sanPham.TenSP</h6>
+                            <a href="@Url.Action("ShopDetail", "Shop", new { id = spmoi.sanPham.MaSP })" class="add-cart">Xem thêm</a>
                             <div class="rating">
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
@@ -153,25 +153,13 @@
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            @if (spmoi.Gia != null)
-                            {
-                                var gia = string.Format("{0}.000", spmoi.Gia.ToString());
-                                <h5>@gia &#8363;</h5>
+                            @{
+                                var gia = string.Format("{0}.000", spmoi.sanPham.Gia.ToString());
+                                var discount = string.Format("{0}.000", spmoi.Discount.ToString());
                             }
-                            else
-                            {
-                                <h5>0 &#8363;</h5>
-                            }
+                            <h5>@discount &#8363;</h5>
                             <div class="product__color__select">
-                                <label for="pc-1">
-                                    <input type="radio" id="pc-1">
-                                </label>
-                                <label class="active black" for="pc-2">
-                                    <input type="radio" id="pc-2">
-                                </label>
-                                <label class="grey" for="pc-3">
-                                    <input type="radio" id="pc-3">
-                                </label>
+                                <span>@gia &#8363;</span>
                             </div>
                         </div>
                     </div>
@@ -314,7 +302,7 @@
                         <div class="blog__item__text">
                             <span><img src="/assets/img/icon/calendar.png" alt=""> 16 February 2020</span>
                             <h5>@item.TieuDe</h5>
-                            <a href="#">Đọc thêm</a>
+                            <a href="@Url.Action("BlogDetail", "Blogs", new { id = item.Id })">Đọc thêm</a>
                         </div>
                     </div>
                 </div>

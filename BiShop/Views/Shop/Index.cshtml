@@ -6,7 +6,7 @@
     var lsp = ViewBag.lsp;
     var nccs = ViewBag.ncc;
 }
-@*<link href="~/assets/css/jquery-ui.css" rel="stylesheet" />*@
+
 <style>
     .page-item > a {
         position: relative;
@@ -29,6 +29,10 @@
             border: 1px solid black;
         }
 
+    .pagination > .active a {
+        border: 1px solid black;
+    }
+
     .center {
         justify-content: center;
         margin-bottom: 15px;
@@ -37,6 +41,90 @@
 
     .page-item {
         padding: 0 5px;
+    }
+
+
+    .list {
+        position: relative;
+    }
+
+        .list label {
+            position: relative;
+            display: block;
+            margin: 20px 0;
+            color: black;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .list input[type="checkbox"], input[type="radio"] {
+            -webkit-appearance: none;
+        }
+
+        .list i {
+            position: absolute;
+            top: 2px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid black;
+        }
+
+        .list input[type="checkbox"]:checked ~ i {
+            top: 1px;
+            border-top: none;
+            border-right: none;
+            height: 10px;
+            width: 15px;
+            transform: rotate(-45deg);
+        }
+
+        .list input[type="radio"]:checked ~ i {
+            top: 1px;
+            border-top: none;
+            border-right: none;
+            height: 10px;
+            width: 15px;
+            transform: rotate(-45deg);
+        }
+
+        .list span {
+            position: relative;
+            left: 40px;
+            transform: 0.5s;
+        }
+
+            .list span::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: black;
+                transform: translateY(-50%) scaleX(0);
+                transform-origin: right;
+                transition: transform 0.5s;
+            }
+
+        .list input[type="checkbox"]:checked ~ span::before {
+            transform: translateY(-50%) scaleX(1);
+            transform-origin: left;
+            transition: transform 0.5s;
+            font-weight: bold;
+        }
+
+        .list input[type="radio"]:checked ~ span::before {
+            transform: translateY(-50%) scaleX(1);
+            transform-origin: left;
+            transition: transform 0.5s;
+            font-weight: bold;
+        }
+    .breadcrumb-option {
+        background-image: url(https://pngimg.com/uploads/welcome/welcome_PNG81.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
     }
 </style>
 
@@ -48,9 +136,16 @@
                 <div class="shop__sidebar">
                     <div class="shop__sidebar__search">
                         <form action="/Shop/Search" method="get">
-                            <input id="txtKeyword" type="text" name="search" placeholder="Tìm...">
-                            <button type="submit"><span class="icon_search"></span></button>
+                            <input class="btn blog__details__btns__item--next" id="txtKeyword" type="text" name="search" placeholder="Tìm...">
+                            <button type="submit"></button>
                         </form>
+                    </div>
+                    <div class="shop__sidebar__search footer__widget">
+                        <button id="btnFilter" class="btn btn-outline-info" type="button"><i class="fas fa-filter"></i> Bạn muốn tìm kiếm</button>
+                        
+                        <ul class="list-group" id="lableFilter">
+                            
+                        </ul>
                     </div>
                     <div class="shop__sidebar__accordion">
                         <div class="accordion" id="accordionExample">
@@ -60,13 +155,20 @@
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <div class="shop__sidebar__categories">
-                                            <ul class="nice-scroll">
-                                                @foreach (var item in lsp)
-                                                {
-                                                    <li><a href="@Url.Action("Index","Shop", new { id = item.Id })">@item.TenLoai</a></li>
-                                                }
-                                            </ul>
+                                        <div class="list">
+                                            <label>
+                                                <input type="radio" name="lsp" value="0">
+                                                <i></i>
+                                                <span>Tất cả</span>
+                                            </label>
+                                            @foreach (var l in lsp)
+                                            {
+                                                <label>
+                                                    <input type="radio" name="lsp" value="@l.Id">
+                                                    <i></i>
+                                                    <span>@l.TenLoai</span>
+                                                </label>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -94,15 +196,37 @@
                                 </div>
                                 <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <div class="shop__sidebar__price">
-                                            <ul>
-                                                <li><a href="@Url.Action("Index","Shop", new { gia = 1 })">0 &#8363; - 100.000 &#8363;</a></li>
-                                                <li><a href="@Url.Action("Index","Shop", new { gia = 2 })">100.000 &#8363; - 200.000 &#8363;</a></li>
-                                                <li><a href="@Url.Action("Index","Shop", new { gia = 3 })">200.000 &#8363; - 300.000 &#8363;</a></li>
-                                                <li><a href="@Url.Action("Index","Shop", new { gia = 5 })">300.000 &#8363;- 500.000 &#8363;</a></li>
-                                                <li><a href="@Url.Action("Index","Shop", new { gia = 10 })">500.000 &#8363; - 1.000.000 &#8363;</a></li>
-                                                <li><a href="@Url.Action("Index","Shop", new { gia = 100 })">1.000.000+ &#8363;</a></li>
-                                            </ul>
+                                        <div class="list">
+                                            <label>
+                                                <input type="radio" name="price" value="0:100">
+                                                <i></i>
+                                                <span>0 &#8363; - 100.000 &#8363;</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="price" value="100:200">
+                                                <i></i>
+                                                <span>100.000 &#8363; - 200.000 &#8363;</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="price" value="200:300">
+                                                <i></i>
+                                                <span>200.000 &#8363; - 300.000 &#8363;</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="price" value="300:500">
+                                                <i></i>
+                                                <span>300.000 &#8363;- 500.000 &#8363;</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="price" value="500:1000">
+                                                <i></i>
+                                                <span>500.000 &#8363; - 1.000.000 &#8363;</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="price" value="1000:10000">
+                                                <i></i>
+                                                <span>1.000.000+ &#8363;</span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -145,12 +269,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div id="listSP" class="row">
                     @foreach (var item in Model)
                     {
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <input id="masp" style="display: none" value="@item.sanPham.MaSP" />
+                                <input class="masp" style="display: none" value="@item.sanPham.MaSP" />
                                 <div class="product__item__pic set-bg" data-setbg="@item.sanPham.LinkAnh">
                                     <ul class="product__hover">
                                         <li><a class="btn btn-outline-info" href="@Url.Action("AddItem","Cart", new { masp = item.sanPham.MaSP, soluong = 1 })"><i class="fas fa-cart-plus"></i> Mua ngay</a></li>
@@ -185,15 +309,20 @@
                 {
                     DisplayLinkToIndividualPages = true,
                     DisplayPageCountAndCurrentLocation = false,
-                    MaximumPageNumbersToDisplay = 10,
+                    DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+                    MaximumPageNumbersToDisplay = 3,
                     ContainerDivClasses = new string[] { "pagination", "center" },
                     UlElementClasses = new string[] { "pagination" },
                     LiElementClasses = new string[] { "page-item" },
                 })
             </div>
+            <div class="feed-footer-">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong @Model.PageCount
+            </div>
         </div>
     </div>
 </section>
+
 <!-- Shop Section End -->
 @section scripts {
     <script src="~/assets/js/jquery-ui.js"></script>
@@ -239,6 +368,58 @@
         $('#sort-price').change(function () {
             var sort = $(this).find(':selected').val();
             window.location.href = "/Shop/Index?sort=" + sort;
+        });
+    </script>
+    <script>
+        $(".list input").click(function () {
+            var gia = $("input[name='price']:checked").val();
+            var lspStrdemo = $("input[name='lsp']:checked").val();          
+            if (gia != null) {
+                var gia1 = gia.split(':');
+            }
+            var lspStr;
+            if (lspStrdemo == 0) {
+                lspStr = 'Tất cả';
+            } else if (lspStrdemo == 1) {
+                lspStr = 'VEST SUIT';
+            } else if (lspStrdemo == 2) {
+                lspStr = 'Phụ kiện nam';
+            } else if (lspStrdemo == 3) {
+                lspStr = 'Áo nam';
+            } else if (lspStrdemo == 4) {
+                lspStr = 'Quần nam';
+            } else if (lspStrdemo == 5) {
+                lspStr = 'Đồ lót nam';
+            } else if (lspStrdemo == 6) {
+                lspStr = 'Quần áo thu đông';
+            }
+
+            if (gia != null && lspStr != null) {
+                $('#lableFilter').html('<li><span>Giá từ ' + gia1[0] + ',000 &#8363;' + ' đến ' + gia1[1] + ',000 &#8363;' + '</span></li><li><span> Danh mục: ' + lspStr + '</span></li>');
+            } else if (gia != null && lspStr == null) {
+                $('#lableFilter').html('<li><span>Giá từ ' + gia1[0] + ' đến ' + gia1[1] + '</span></li>');
+            } else if (gia == null && lspStr != null) {
+                $('#lableFilter').html('<li><span>Danh mục: ' + lspStr + '</span></li>');
+            } 
+        });
+            
+
+        
+        $(document).ready(function () {
+            $("#btnFilter").click(function () {
+                var gia = $("input[name='price']:checked").val();
+                var lspStr = $("input[name='lsp']:checked").val();
+                if (gia != null && lspStr != null) {
+                    location.href = "/Shop/LocSanPham?lspStr=" + lspStr + "&gia=" + gia;
+                } else if (gia != null && lspStr == null) {
+                    window.location.href = '/Shop/LocSanPham?lspStr=0' + "&gia=" + gia;
+                } else if (gia == null && lspStr != null) {
+                    window.location.href = '/Shop/LocSanPham?lspStr=' + lspStr + "&gia=0";
+                } else {
+                    location.reload();
+                }                
+            });
+
         });
     </script>
 }

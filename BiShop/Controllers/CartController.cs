@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -37,6 +35,7 @@ namespace BiShop.Controllers
             return View(list);
         }
 
+        #region HttpPost UpDate
         [HttpPost]
         public JsonResult UpDate(string cartModel)
         {
@@ -59,7 +58,9 @@ namespace BiShop.Controllers
                 Status = true
             });
         }
+        #endregion
 
+        #region HttpPost Delete
         [HttpPost]
         public JsonResult Delete(long masp)
         {
@@ -71,8 +72,9 @@ namespace BiShop.Controllers
                 Status = true
             });
         }
+        #endregion
 
-
+        #region HttpPost DeleteAll
         [HttpPost]
         public JsonResult DeleteAll()
         {
@@ -82,7 +84,9 @@ namespace BiShop.Controllers
                 Status = true
             });
         }
+        #endregion
 
+        #region AddItem
         public ActionResult AddItem(int masp, int soluong)
         {
             var sanphams = data.SanPhams.FirstOrDefault(s => s.MaSP == masp);
@@ -127,7 +131,9 @@ namespace BiShop.Controllers
             }
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region ThanhToan
         public ActionResult ThanhToan()
         {
             var cart = Session[CartSession];
@@ -160,9 +166,11 @@ namespace BiShop.Controllers
 
             return View(list);
         }
+        #endregion
 
+        #region HttpPost  ThanhToan
         [HttpPost]
-        public ActionResult ThanhToan(string name, string diachi, string email, string phone)
+        public ActionResult ThanhToan(string name, string diachi, string email, string phone, int maship)
         {
 
             try
@@ -174,7 +182,7 @@ namespace BiShop.Controllers
                     {
                         MaKH = kh.Id,
                         NgayDH = DateTime.Now,
-                        MaShip = 1,
+                        MaShip = maship,
                         DiaChiShip = diachi,
                         TrangThai = "Đơn mới",
                         GhiChu = name + " - " + phone + " - " + DateTime.Now.ToString(),
@@ -184,6 +192,7 @@ namespace BiShop.Controllers
 
                     var cart = (List<Cart>)Session[CartSession];
                     List<CTDonHang> orderDetails = new List<CTDonHang>();
+                    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
                     foreach (var item in cart)
                     {
                         var ctdh = new CTDonHang()
@@ -191,7 +200,7 @@ namespace BiShop.Controllers
                             MaDH = order.MaDH,
                             MaSP = item.SanPhamViewModel.sanPham.MaSP,
                             SoLuong = item.SoLuong,
-                            GhiChu = item.SanPhamViewModel.sanPham.TenSP + " - " + item.SoLuong.ToString(),
+                            GhiChu = item.SanPhamViewModel.sanPham.TenSP + " - " + String.Format(info, "{0:c3}", item.SanPhamViewModel.sanPham.Gia.ToString()),
                         };
                         orderDetails.Add(ctdh);
                         SanPham sanpham = data.SanPhams.FirstOrDefault(x => x.MaSP == item.SanPhamViewModel.sanPham.MaSP);
@@ -226,7 +235,9 @@ namespace BiShop.Controllers
             }
 
         }
+        #endregion
 
+        #region CartPartial
         public ActionResult CartPartial()
         {
             Cart model = new Cart();
@@ -248,7 +259,7 @@ namespace BiShop.Controllers
 
             return PartialView(model);
         }
-
+        #endregion
 
     }
 }

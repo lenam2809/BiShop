@@ -1,0 +1,132 @@
+﻿
+@model IEnumerable<BiShop.Areas.Admin.Controllers.BaoCaoThongKeController.BCTheoDanhMuc>
+@{
+    ViewBag.Title = "Thống kê xuất theo danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row pb-3 container">
+    <div class="col-md-5">
+        @using (Html.BeginForm("Export", "BaoCaoThongKe", FormMethod.Post))
+        {
+            <input type="hidden" name="GridHtml" />
+            <input class="btn btn-outline-theme" type="submit" id="btnSubmit" value="Export" />
+        }
+    </div>
+
+
+    <div class="col-md-7">
+        @using (Html.BeginForm("BaoCaoTheoDanhMuc", "BaoCaoThongKe", FormMethod.Post))
+        {
+        <div class="row">
+            <div class="col-1">
+                <p>Từ ngày</p>
+            </div>
+            <div class="col-4">
+                <input id="datePicker1" type="date" name="TuNgay" />
+            </div>
+            <div class="col-1">
+                <p>Đến ngày</p>
+            </div>
+            <div class="col-4">
+                <input id="datePicker2" type="date" name="DenNgay" />
+            </div>
+            <div class="col-2">
+                <input class="btn btn-outline-success" type="submit" value="Tìm kiếm" />
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<div id="Grid" class="table-responsive product-list">
+    <table cellpadding="5" cellspacing="0" style="border: 1px solid black;font-size: 9pt;font-family:Arial" class="table table-bordered table-striped mt-0" id="productList">
+        <thead>
+            <tr>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Tên sản phẩm
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Số lượng thực
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Doanh thu
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Giảm giá
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Doanh thu thực
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Tổng doanh thu
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="width:120px;">
+                    <td style="border: 1px solid #ccc" class="align-middle">
+                        @Html.DisplayFor(modelItem => item.LSP)
+                    </td>
+                    @{
+                        var DoanhThu = string.Format("{0}.000", item.DoanhThu.ToString());
+                        var GiamGia = string.Format("{0}.000", item.GiamGia.ToString());
+                        var DoanhThuThuc = string.Format("{0}.000", item.DoanhThuThuc.ToString());
+                        var TongDoanhThu = string.Format("{0}.000", item.TongDoanhThu.ToString());
+                    }
+                    <td style="border: 1px solid #ccc" class="align-middle">@Html.DisplayFor(modelItem => item.SoLuongThuc)</td>
+                    <td style="border: 1px solid #ccc" class="align-middle">@DoanhThu&#8363;</td>
+                    <td style="border: 1px solid #ccc" class="align-middle">@GiamGia&#8363;</td>
+                    <td style="border: 1px solid #ccc" class="align-middle">@DoanhThuThuc&#8363;</td>
+                    <td style="border: 1px solid #ccc" class="align-middle">@TongDoanhThu&#8363;</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr style="width: 120px;">
+                <td style="border: 1px solid #ccc" class="text-uppercase">
+                    <p class="fw-bold">Tổng</p>
+                </td>
+                @{
+                    var sumDoanhThu = string.Format("{0}.000", ViewBag.sumDoanhThu.ToString());
+                    var sumGiamGia = string.Format("{0}.000", ViewBag.sumGiamGia.ToString());
+                    var sumDoanhThuThuc = string.Format("{0}.000", ViewBag.sumDoanhThuThuc.ToString());
+
+                }
+                <td>@ViewBag.sumSoLuongThuc</td>
+                <td>@sumDoanhThu&#8363;</td>
+                <td>@sumGiamGia&#8363;</td>
+                <td>@sumDoanhThuThuc&#8363;</td>
+                <td>@sumDoanhThuThuc&#8363;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var now = new Date();
+
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+            $('#datePicker1').val(today);
+            $('#datePicker2').val(today);
+        });
+    </script>
+}
+

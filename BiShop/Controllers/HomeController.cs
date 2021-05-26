@@ -1,13 +1,16 @@
 ﻿using BiShop.Models;
+using BiShop.ViewModel;
 using Rotativa;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Account = BiShop.Models.Account;
 
 namespace BiShop.Controllers
 {
@@ -21,15 +24,24 @@ namespace BiShop.Controllers
             ViewBag.category = category;
 
             //Top 4 san pham moi
-            var top4product = db.SanPhams.Take(4).ToList();
-            ViewBag.top4product = top4product;
+            List<SanPhamViewModel> sanPhamViewModels = new List<SanPhamViewModel>();
+            var top4productId = db.NhapSanPhams.OrderByDescending(x => x.NgayNhap).Take(4).ToList().Select(x => x.Id);
+
+            //var sanpham = db.SanPhams.ToList();
+            foreach (var item in top4productId)
+            {
+                SanPhamViewModel sanPhamViewModel = new SanPhamViewModel();
+                sanPhamViewModel.sanPham = db.SanPhams.FirstOrDefault(x=>x.MaSP==item);
+                sanPhamViewModels.Add(sanPhamViewModel);
+            }
+            ViewBag.top4product = sanPhamViewModels;
 
             //Top 4 san pham ban chạy nhất
             var top4banchay = db.SanPhams.OrderBy(x=>x.Gia).Take(4).ToList();
             ViewBag.top4banchay = top4banchay;
 
-            //Top 4 san pham ban chạy nhất
-            var top4sales = db.SanPhams.OrderByDescending(x => x.Gia).Take(4).ToList();
+            //Top 4 san pham giá rẻ nhất
+            var top4sales = db.SanPhams.OrderBy(x => x.Gia).Take(4).ToList();
             ViewBag.top4sales = top4sales;
 
             //top 3 blogs
@@ -67,7 +79,8 @@ namespace BiShop.Controllers
             if (check != null)
             {
                 var khachhang = db.KHACHHANGs.FirstOrDefault(x => x.Email == email);
-                Session["Name"] = khachhang.TenKH.ToString();
+                Request.RequestContext.HttpContext.Session["Name"] = khachhang.TenKH.ToString();
+                Session["Photo"] = khachhang.Photo.ToString();
                 Session["Id"] = khachhang.Id;
                 FormsAuthentication.SetAuthCookie(check.Email, false);
                 if (Url.IsLocalUrl(returnUrl)
@@ -98,11 +111,14 @@ namespace BiShop.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        #region Register
         public ActionResult Register()
         {
             return View();
         }
+        #endregion
 
+        #region HttpPost Register
         [HttpPost]
         public ActionResult Register(string name, string phone, string email, string pass, string role = "member")
         {
@@ -138,7 +154,7 @@ namespace BiShop.Controllers
                     }
                     else
                     {
-                        ViewBag.error = "Email đã tồn tại";
+                        ModelState.AddModelError("EmailFail", "Email đã tồn tại !");
                         return View();
                     }
                 }
@@ -162,7 +178,9 @@ namespace BiShop.Controllers
                 throw raise;
             }
         }
+        #endregion
 
+        #region ProfileOfEmail
         public ActionResult ProfileOfEmail(int id)
         {
             var profile = db.KHACHHANGs.FirstOrDefault(p => p.Id == id);
@@ -177,14 +195,18 @@ namespace BiShop.Controllers
 
             return View();
         }
+        #endregion: 'BiShop.Models.Account:Mật khẩu phải có từ 6 đến 16 ký tự.'
 
-
+        #region EditProfile
         public ActionResult EditProfile(int id)
         {
             var proffile = db.KHACHHANGs.FirstOrDefault(p => p.Id == id);
+            ViewBag.NgaySinh = String.Format("{0:MM/dd/yyyy}", proffile.NgaySinh);
             return View(proffile);
         }
+        #endregion
 
+        #region HttpPost EditProfile
         [HttpPost]
         public ActionResult EditProfile(int id, KHACHHANG collection)
         {
@@ -198,6 +220,7 @@ namespace BiShop.Controllers
                 Sp.Email = collection.Email;
                 Sp.GioiTinh = collection.GioiTinh;
                 Sp.Phone = collection.Phone;
+                Sp.Photo = collection.Photo;
                 db.SaveChanges();
                 return RedirectToAction("ProfileOfEmail", new { id = id });
             }
@@ -206,13 +229,17 @@ namespace BiShop.Controllers
                 return View();
             }
         }
+        #endregion
 
+        #region LichSuThanhToan
         public ActionResult LichSuThanhToan(int id)
         {
             var donhang = db.DonHangs.Where(p => p.MaKH == id);
             return View(donhang);
         }
+        #endregion
 
+        #region ChiTietDH
         public ActionResult ChiTietDH(int? id)
         {
             if (id == null)
@@ -226,7 +253,9 @@ namespace BiShop.Controllers
             }
             return View(ctdonHang);
         }
+        #endregion
 
+        #region XemHoaDon
         public ActionResult XemHoaDon(int id)
         {
             var donhang = db.DonHangs.FirstOrDefault(x => x.MaDH == id);
@@ -241,8 +270,9 @@ namespace BiShop.Controllers
             ViewBag.ctdh = ctdh;
             return View(donhang);
         }
+        #endregion
 
-
+        #region XuatHoaDon
         public ActionResult XuatHoaDon(int id)
         {
             var donhang = db.DonHangs.FirstOrDefault(x => x.MaDH == id);
@@ -258,7 +288,9 @@ namespace BiShop.Controllers
             var report = new PartialViewAsPdf("~/Views/ListPartial/_HoaDon.cshtml", donhang);
             return report;
         }
+        #endregion
 
+        #region Huy Don Hang
         public ActionResult Cancel(int id)
         {
             var donhang = db.DonHangs.FirstOrDefault(x => x.MaDH == id);
@@ -266,5 +298,8 @@ namespace BiShop.Controllers
             db.SaveChanges();
             return RedirectToAction("LichSuThanhToan", new { id = donhang.MaKH });
         }
+        #endregion
+
+
     }
 }

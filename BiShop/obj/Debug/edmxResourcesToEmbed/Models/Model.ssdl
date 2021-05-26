@@ -110,11 +110,11 @@
   </EntityType>
   <EntityType Name="Review">
     <Key>
-      <PropertyRef Name="MaKH" />
-      <PropertyRef Name="MaSP" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="MaKH" Type="int" Nullable="false" />
-    <Property Name="MaSP" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaKH" Type="int" />
+    <Property Name="MaSP" Type="int" />
     <Property Name="NoiDung" Type="nvarchar(max)" />
     <Property Name="NgayTao" Type="datetime" />
   </EntityType>
@@ -259,7 +259,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Review_KHACHHANG">
-    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
+    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
     <End Role="Review" Type="Self.Review" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="KHACHHANG">
@@ -271,7 +271,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Review_SanPham">
-    <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
     <End Role="Review" Type="Self.Review" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SanPham">

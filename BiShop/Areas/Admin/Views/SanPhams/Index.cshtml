@@ -19,19 +19,10 @@
                                 @Html.DisplayNameFor(model => model.Gia)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ChatLieu)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.KieuDang)
-                            </th>
-                            <th>
                                 Ảnh
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.SoLuong)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IsDelete)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.LoaiSanPham.TenLoai)
@@ -53,19 +44,10 @@
                                     @Html.DisplayFor(modelItem => item.Gia)
                                 </td>
                                 <td>
-                                    @Html.Raw(item.ChatLieu)
-                                </td>
-                                <td>
-                                    @Html.Raw(item.KieuDang)
-                                </td>
-                                <td>
                                     <img src="@Html.DisplayFor(modelItem => item.LinkAnh)" alt="img" width="80" height="120" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.SoLuong)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IsDelete)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.LoaiSanPham.TenLoai)

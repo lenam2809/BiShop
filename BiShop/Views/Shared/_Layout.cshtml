@@ -26,6 +26,11 @@
     <link href="~/assets/css/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/css/style.css" type="text/css">
 
+    <!--Chatbot-->
+    <link href="~/assets/BotChat/css/style.css" rel="stylesheet" />
+    <link href="~/assets/BotChat/css/responsive.css" rel="stylesheet" />
+    <link href="~/assets/BotChat/css/jquery.convform.css" rel="stylesheet" />
+
     <style>
 
         #movetop {
@@ -109,7 +114,7 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <div class="header__top__links">
-                                    <a href="/Home/ProfileOfEmail?id=@Session["Id"]">  Chào, @(User.Identity.IsAuthenticated ? Session["Name"] : "Guest")</a>
+                                    <a href="/Home/ProfileOfEmail?id=@Session["Id"]">  Chào, @(User.Identity.IsAuthenticated ? Request.RequestContext.HttpContext.Session["Name"] : "Guest")</a>
                                     <a href="/Home/SignOut">Đăng xuất</a>
                                 </div>
                             }
@@ -193,6 +198,46 @@
     </section>
 
     @RenderBody()
+
+    <div class="portfolio-section" id="portfolio">
+        <div id="port_pop_pic_bg"></div>
+        <div id="port_pop_pic"></div>
+        <div class="container-fluid">
+            <h2 class="text-center bdr-btm bdr-btm-center">Nổi bật</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="portfolio-box" style="        background-image: url('/assets/BotChat/images/port1.jpeg');">
+                        <h3>Portfolio ipsum dolor</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-box" style="background-image: url('/assets/BotChat/images/port2.jpeg');">
+                        <h3>Portfolio ipsum dolor</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-box" style="background-image: url('/assets/BotChat/images/port3.jpeg');">
+                        <h3>Portfolio ipsum dolor</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-box" style="background-image: url('/assets/BotChat/images/port4.jpeg');">
+                        <h3>Portfolio ipsum dolor</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-box" style="background-image: url('/assets/BotChat/images/port5.jpeg');">
+                        <h3>Portfolio ipsum dolor</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-box" style="background-image: url('/assets/BotChat/images/port6.jpeg');">
+                        <h3>Portfolio ipsum dolor</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <footer class="footer">
@@ -279,6 +324,9 @@
 
 
 
+
+
+
     <!-- Search Begin -->
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
@@ -289,10 +337,52 @@
         </div>
     </div>
     <!-- Search End -->
+    <!-- ChatBot -->
+    <div class="chat_icon">
+        @*<i class="fa fa-comments" aria-hidden="true"></i>*@
+        <i class="fas fa-question-circle fa-1x"  @*aria-hidden="true"*@></i>
+    </div>
+
+    <div class="chat_box">
+        <div class="my-conv-form-wrapper">
+            <form action="" method="GET" class="hidden">
+                <select data-conv-question="Xin chào! Tôi có thể giúp gì cho bạn?" name="category">
+                    <option value="WebDevelopment">Website Development ?</option>
+                    <option value="DigitalMarketing">Digital Marketing ?</option>
+                </select>
+
+                <div data-conv-fork="category">
+                    <div data-conv-case="WebDevelopment">
+                        <input type="text" name="domainName" data-conv-question="Please, tell me your domain name">
+                    </div>
+                    <div data-conv-case="DigitalMarketing" data-conv-fork="first-question2">
+                        <input type="text" name="companyName" data-conv-question="Please, enter your company name">
+                    </div>
+                </div>
+
+                <input type="text" name="name" data-conv-question="Please, Enter your name">
+
+                <input type="text" data-conv-question="Hi {name}, <br> It's a pleasure to meet you." data-no-answer="true">
+
+                <input data-conv-question="Enter your e-mail" data-pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" type="email" name="email" required placeholder="What's your e-mail?">
+
+                <select data-conv-question="Please Conform">
+                    <option value="Yes">Conform</option>
+                </select>
+
+            </form>
+        </div>
+    </div>
+    <!-- ChatBot end -->
+
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/Knockout/knockout-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/Distrist.js"></script>
+    <script src="~/assets/BotChat/js/jquery.convform.js"></script>
+    <script src="~/assets/BotChat/js/custom.js"></script>
     @RenderSection("scripts", required: false)
 
     <!-- move top -->
@@ -339,5 +429,20 @@
     <script src="~/assets/js/mixitup.min.js"></script>
     <script src="~/assets/js/owl.carousel.min.js"></script>
     <script src="~/assets/js/main.js"></script>
+    <script type="text/javascript">
+        portfolioList = document.querySelectorAll('.portfolio-box');
+        portfolioList.forEach(function (portfolioPic) {
+            portfolioPic.addEventListener('click', function () {
+                bg = this.style.backgroundImage;
+                document.getElementById('port_pop_pic_bg').classList.add("active")
+                document.getElementById('port_pop_pic').style.backgroundImage = bg
+                document.getElementById('port_pop_pic').classList.add("active")
+            });
+        })
+        document.getElementById('port_pop_pic_bg').addEventListener('click', function () {
+            document.getElementById('port_pop_pic_bg').classList.remove("active")
+            document.getElementById('port_pop_pic').classList.remove("active")
+        })
+    </script>
 </body>
 </html>

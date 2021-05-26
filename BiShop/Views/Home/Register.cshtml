@@ -49,32 +49,33 @@
                     <h3 class="mb-2">Đăng ký</h3>
                     <small class="text-muted bc-description">Tạo tài khoản mới</small>
                     <form action="/Home/Register" method="post" class="mt-2">
+                        @Html.ValidationMessage("EmailFail")
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control mt-0" placeholder="Họ và tên" name="name" aria-label="Username" aria-describedby="basic-addon1">
+                            <input id="demoname" type="text" class="form-control mt-0" placeholder="Họ và tên" name="name" aria-label="Username" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
                             </div>
-                            <input type="email" class="form-control mt-0" placeholder="yourmail@gmail.com" name="email" aria-label="email" aria-describedby="basic-addon1">
+                            <input type="email" class="form-control mt-0" placeholder="yourmail@gmail.com" name="email" aria-label="email" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-phone"></i></span>
                             </div>
-                            <input type="text" class="form-control mt-0" placeholder="0123-456-789" name="phone" aria-label="phone" aria-describedby="basic-addon1">
+                            <input type="tel" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" class="form-control mt-0" placeholder="0123456789" name="phone" aria-label="phone" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
                             </div>
-                            <input type="password" class="form-control mt-0" placeholder="Mật khẩu" name="pass" aria-label="Password" aria-describedby="basic-addon1">
+                            <input type="password" minlength="6" class="form-control mt-0" placeholder="Mật khẩu" name="pass" aria-label="Password" aria-describedby="basic-addon1" required>
                         </div>
 
                         <div class="form-group">
@@ -88,18 +89,20 @@
 
     <!--Login Wrapper-->
     <!-- Page JavaScript Files-->
-    <script src="~/Areas/assets/js/jquery.min.js"></script>
-    <script src="~/Areas/assets/js/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <!--Popper JS-->
     <script src="~/Areas/assets/js/popper.min.js"></script>
     <!--Bootstrap-->
-    <script src="~/Areas/assets/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <!--Toastr-->
-    <script src="   "></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
 
     <!--Custom Js Script-->
     <script src="~/Areas/assets/js/custom.js"></script>
     <!--Custom Js Script-->
+
+
 </body>
 </html>

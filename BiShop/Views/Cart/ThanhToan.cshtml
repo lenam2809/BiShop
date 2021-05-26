@@ -21,7 +21,7 @@
                                 <div class="col-lg-12">
                                     <div class="checkout__input">
                                         <p>Họ và tên<span>*</span></p>
-                                        <input type="text" name="name" value="@ViewBag.tenkh">
+                                        <input type="text" name="name" value="@ViewBag.tenkh" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input type="text" name="phone" value="@ViewBag.phone">
+                                        <input type="text" name="phone" value="@ViewBag.phone" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6">
-                            <div class="checkout__order">
+                            <div style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;" class="checkout__order">
                                 <h4 class="order__title">Đơn hàng của bạn</h4>
                                 <div class="checkout__order__products">Sản phẩm <span>Tổng</span></div>
                                 @foreach (var item in Model)
@@ -57,37 +57,54 @@
                                     <ul class="checkout__total__products">
                                         @{
                                             var gia = string.Format("{0}.000", item.TongTien.ToString());
-          
+
                                         }
                                         <li>@item.SanPhamViewModel.sanPham.TenSP <span>@gia &#8363;</span></li>
                                     </ul>
                                 }
                                 <ul class="checkout__total__all">
                                     <li>Tổng <span>@ViewBag.Tongtien</span></li>
+                                    <li>Phí ship <span id="phiship">0</span></li>
                                 </ul>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul class="checkout__total__all">
+                                            <li>Tổng tiền <span id="tong">@ViewBag.Tongtien</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr />
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h6>Phương thức vận chuyển</h6>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <select class="nice-select" aria-label="Default select example">
+                                    <div class="col-lg-8">
+                                        <select id="select" onchange="getval(this);" aria-label="Default select example">
                                             @foreach (var item in ship)
                                             {
                                                 <option value="@item.Id" selected>@item.ShipName</option>
                                             }
                                         </select>
+                                        &emsp;
+                                        <button type="button" class="btn btn-outline-danger">Chi tiết</button>
+                                        <input id="txtPhiShip" type="text" value="1" name="maship" style="display: none;" />
                                     </div>
                                 </div>
                                 <hr />
+                                <div class="checkout__input__checkbox">
+                                    <label>
+                                        <input style="visibility: inherit;" class="checkmark" data-bind="checked: hasCheckout" type="checkbox" />
+                                        Bạn muốn thanh toán online?
+                                    </label>
+                                </div>
+                                <hr />
+
                                 <div class="row">
                                     <div class="col">
-                                        <button id="btnThanhToan" style="width: 100%;" type="submit" class="btn btn-outline-success">Thanh toán</button>
-                                    </div>
-                                    <div class="col">
-                                        <button style="width: 100%;" type="button" class="btn btn-outline-success"><i class="fab fa-paypal"></i> Paypal</button>
+                                        <button id="btnThanhToan" data-bind="hidden: hasCheckout" style="width: 100%;" type="submit" class="btn btn-outline-success">Thanh toán</button>
+                                        <button style="width: 100%;" data-bind="visible: hasCheckout" type="button" class="btn btn-outline-success"><i class="fab fa-paypal"></i> Paypal</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -112,11 +129,30 @@
 
 
 @section scripts {
-    @*<script>
-        $(document).ready(function () {
-            $("#btnThanhToan").click(function () {
-                alert("Thanh toán thành công!");
-            });
-        });
-    </script>*@
+    <script>
+        var viewModel = function () {
+            var listShip = ["@ViewBag.ship"];
+            this.hasCheckout = ko.observable(false);
+        };
+        ko.applyBindings(new viewModel());
+    </script>
+    <script>
+
+        function getval(sel) {
+            if (sel.value == 1) {
+                $("#txtPhiShip").val("1");
+            }
+            else if (sel.value == 2) {
+                $("#txtPhiShip").val("2");
+            }
+            else if (sel.value == 3) {
+                $("#txtPhiShip").val("3");
+            }
+            else if (sel.value == 4) {
+                $("#txtPhiShip").val("4");
+            } else {
+                $("#txtPhiShip").val("1");
+            }
+        }
+    </script>
 }

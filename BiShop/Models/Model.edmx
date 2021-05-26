@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DbBiLuxuryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DbBiLuxuryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Email" />
@@ -115,11 +115,11 @@
         </EntityType>
         <EntityType Name="Review">
           <Key>
-            <PropertyRef Name="MaKH" />
-            <PropertyRef Name="MaSP" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="MaKH" Type="int" Nullable="false" />
-          <Property Name="MaSP" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="MaSP" Type="int" />
           <Property Name="NoiDung" Type="nvarchar(max)" />
           <Property Name="NgayTao" Type="datetime" />
         </EntityType>
@@ -264,7 +264,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_KHACHHANG">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
@@ -276,7 +276,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_SanPham">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SanPham">
@@ -409,8 +409,7 @@
             <End Role="TinTuc" EntitySet="TinTuc" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DbBiLuxuryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -488,7 +487,7 @@
           <Property Name="NgayTao" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account" Relationship="Self.FK_KHACHHANG_Account" FromRole="KHACHHANG" ToRole="Account" />
           <NavigationProperty Name="DonHangs" Relationship="Self.FK_DonHang_KHACHHANG" FromRole="KHACHHANG" ToRole="DonHang" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_KHACHHANG" FromRole="KHACHHANG" ToRole="Review" />
+          <NavigationProperty Name="Reviews" Relationship="DbBiLuxuryModel.FK_Review_KHACHHANG" FromRole="KHACHHANG" ToRole="Review" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -540,18 +539,6 @@
           <Property Name="MaNV" Type="Int32" />
           <NavigationProperty Name="CTNhapSanPhams" Relationship="Self.FK_CTNhapSanPham_NhapSanPham" FromRole="NhapSanPham" ToRole="CTNhapSanPham" />
         </EntityType>
-        <EntityType Name="Review">
-          <Key>
-            <PropertyRef Name="MaKH" />
-            <PropertyRef Name="MaSP" />
-          </Key>
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="MaSP" Type="Int32" Nullable="false" />
-          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_Review_KHACHHANG" FromRole="Review" ToRole="KHACHHANG" />
-          <NavigationProperty Name="SanPham" Relationship="Self.FK_Review_SanPham" FromRole="Review" ToRole="SanPham" />
-        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="MaSP" />
@@ -570,7 +557,7 @@
           <NavigationProperty Name="CTNhapSanPhams" Relationship="Self.FK_CTNhapSanPham_SanPham" FromRole="SanPham" ToRole="CTNhapSanPham" />
           <NavigationProperty Name="LoaiSanPham" Relationship="Self.FK_SanPham_LoaiSanPham" FromRole="SanPham" ToRole="LoaiSanPham" />
           <NavigationProperty Name="NCC" Relationship="Self.FK_SanPham_NCC" FromRole="SanPham" ToRole="NCC" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_SanPham" FromRole="SanPham" ToRole="Review" />
+          <NavigationProperty Name="Reviews" Relationship="DbBiLuxuryModel.FK_Review_SanPham" FromRole="SanPham" ToRole="Review" />
         </EntityType>
         <EntityType Name="Search">
           <Key>
@@ -688,18 +675,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Review_KHACHHANG">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
-          <End Role="Review" Type="Self.Review" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KHACHHANG">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Review">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LoaiSanPham_KhuyenMai">
           <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="0..1" />
           <End Role="LoaiSanPham" Type="Self.LoaiSanPham" Multiplicity="*" />
@@ -760,18 +735,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Review_SanPham">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="Review" Type="Self.Review" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
-            </Principal>
-            <Dependent Role="Review">
-              <PropertyRef Name="MaSP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DbBiLuxuryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="CTDonHangs" EntityType="Self.CTDonHang" />
@@ -784,7 +747,6 @@
           <EntitySet Name="LoaiTins" EntityType="Self.LoaiTin" />
           <EntitySet Name="NCCs" EntityType="Self.NCC" />
           <EntitySet Name="NhapSanPhams" EntityType="Self.NhapSanPham" />
-          <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
           <EntitySet Name="Searches" EntityType="Self.Search" />
           <EntitySet Name="Ships" EntityType="Self.Ship" />
@@ -817,10 +779,6 @@
             <End Role="Ship" EntitySet="Ships" />
             <End Role="DonHang" EntitySet="DonHangs" />
           </AssociationSet>
-          <AssociationSet Name="FK_Review_KHACHHANG" Association="Self.FK_Review_KHACHHANG">
-            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
-            <End Role="Review" EntitySet="Reviews" />
-          </AssociationSet>
           <AssociationSet Name="FK_LoaiSanPham_KhuyenMai" Association="Self.FK_LoaiSanPham_KhuyenMai">
             <End Role="KhuyenMai" EntitySet="KhuyenMais" />
             <End Role="LoaiSanPham" EntitySet="LoaiSanPhams" />
@@ -841,11 +799,52 @@
             <End Role="NCC" EntitySet="NCCs" />
             <End Role="SanPham" EntitySet="SanPhams" />
           </AssociationSet>
-          <AssociationSet Name="FK_Review_SanPham" Association="Self.FK_Review_SanPham">
+          <EntitySet Name="Reviews" EntityType="DbBiLuxuryModel.Review" />
+          <AssociationSet Name="FK_Review_KHACHHANG" Association="DbBiLuxuryModel.FK_Review_KHACHHANG">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_SanPham" Association="DbBiLuxuryModel.FK_Review_SanPham">
             <End Role="SanPham" EntitySet="SanPhams" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="MaSP" Type="Int32" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="KHACHHANG" Relationship="DbBiLuxuryModel.FK_Review_KHACHHANG" FromRole="Review" ToRole="KHACHHANG" />
+          <NavigationProperty Name="SanPham" Relationship="DbBiLuxuryModel.FK_Review_SanPham" FromRole="Review" ToRole="SanPham" />
+        </EntityType>
+        <Association Name="FK_Review_KHACHHANG">
+          <End Type="DbBiLuxuryModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1" />
+          <End Type="DbBiLuxuryModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_SanPham">
+          <End Type="DbBiLuxuryModel.SanPham" Role="SanPham" Multiplicity="0..1" />
+          <End Type="DbBiLuxuryModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -969,16 +968,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="DbBiLuxuryModel.Review">
-              <MappingFragment StoreEntitySet="Review">
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SanPhams">
             <EntityTypeMapping TypeName="DbBiLuxuryModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
@@ -1024,6 +1013,17 @@
                 <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
                 <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
                 <ScalarProperty Name="MaLoaiTin" ColumnName="MaLoaiTin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="DbBiLuxuryModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

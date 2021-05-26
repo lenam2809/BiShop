@@ -47,6 +47,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -55,6 +61,9 @@
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.32.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.32\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -236,6 +245,7 @@
     </Compile>
     <Compile Include="ViewModel\BaoCao.cs" />
     <Compile Include="ViewModel\BaoCaoNhap.cs" />
+    <Compile Include="ViewModel\BaocaoTongQuan.cs" />
     <Compile Include="ViewModel\Cart.cs" />
     <Compile Include="ViewModel\HoaDon.cs" />
     <Compile Include="ViewModel\LSThanhToan.cs" />
@@ -404,6 +414,8 @@
     <Content Include="Areas\assets\img\client-img4.png" />
     <Content Include="Areas\assets\img\client-img5.png" />
     <Content Include="Areas\assets\img\default-avatar.jpg" />
+    <Content Include="Areas\assets\img\demo-Size-Big.jpg" />
+    <Content Include="Areas\assets\img\demo-size.jpg" />
     <Content Include="Areas\assets\img\gallery-img1.jpg" />
     <Content Include="Areas\assets\img\gallery-img2.jpg" />
     <Content Include="Areas\assets\img\gallery-img3.jpg" />
@@ -2189,6 +2201,21 @@
     <Content Include="Areas\assets\webfonts\fa-brands-400.svg" />
     <Content Include="Areas\assets\webfonts\fa-regular-400.svg" />
     <Content Include="Areas\assets\webfonts\fa-solid-900.svg" />
+    <Content Include="assets\BotChat\css\bootstrap.css" />
+    <Content Include="assets\BotChat\css\jquery.convform.css" />
+    <Content Include="assets\BotChat\css\responsive.css" />
+    <Content Include="assets\BotChat\css\style.css" />
+    <Content Include="assets\BotChat\images\banner.jpg" />
+    <Content Include="assets\BotChat\images\logo.png" />
+    <Content Include="assets\BotChat\images\port1.jpeg" />
+    <Content Include="assets\BotChat\images\port2.jpeg" />
+    <Content Include="assets\BotChat\images\port3.jpeg" />
+    <Content Include="assets\BotChat\images\port4.jpeg" />
+    <Content Include="assets\BotChat\images\port5.jpeg" />
+    <Content Include="assets\BotChat\images\port6.jpeg" />
+    <Content Include="assets\BotChat\js\custom.js" />
+    <Content Include="assets\BotChat\js\jquery-3.1.1.min.js" />
+    <Content Include="assets\BotChat\js\jquery.convform.js" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\elegant-icons.css" />
     <Content Include="assets\css\font-awesome.min.css" />
@@ -2490,6 +2517,9 @@
     <Content Include="Areas\Admin\Views\Shared\Notification.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Inbox.cshtml" />
     <Content Include="Areas\Admin\Views\BaoCaoThongKe\BaoCaoTon.cshtml" />
+    <Content Include="Areas\Admin\Views\NhapSanPhams\CreateCT.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoThongKe\BaoCaoTheoDanhMuc.cshtml" />
+    <Content Include="Areas\Admin\Views\BaoCaoThongKe\BaoCaoNhapTheoDanhMuc.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2500,6 +2530,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Knockout\knockout-latest.js" />
+    <Content Include="Scripts\Knockout\knockout-validation.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -2616,7 +2648,7 @@
     <Content Include="Views\Home\ChiTietDH.cshtml" />
     <Content Include="Views\ListPartial\_HoaDon.cshtml" />
     <Content Include="Views\Home\XemHoaDon.cshtml" />
-    <Content Include="Views\Shop\Seach.cshtml" />
+    <Content Include="Views\Shop\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

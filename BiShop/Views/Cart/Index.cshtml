@@ -80,11 +80,9 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="cart__total">
-                        <h6>Tổng</h6>
+                    <div style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;" class="cart__total">
                         <ul>
-                            <li>Tổng <span>@ViewBag.total</span></li>
-                            <li>Phí ship <span>0</span></li>
+                            <li>Tổng tiền <span>@ViewBag.total</span></li>                           
                         </ul>
                         <a href="/Cart/ThanhToan" class="primary-btn">Thanh toán</a>
                     </div>
@@ -168,11 +166,14 @@ else
     @if (TempData["ThanhToan"] != null)
     {
         <script type="text/javascript">
+            var value = '@Session["Id"]';
             toastr.options =
             {
                 "debug": false,
                 "positionClass": "toast-bottom-right",
-                "onclick": null,
+                "onclick": function() {
+                    window.location.href = '/Home/LichSuThanhToan/' + value;
+                },
                 "fadeIn": 300,
                 "fadeOut": 100,
                 "timeOut": 3000,

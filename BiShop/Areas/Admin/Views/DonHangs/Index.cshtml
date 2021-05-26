@@ -37,14 +37,6 @@
             <table class="table table-bordered table-striped mt-0" id="productList">
                 <thead>
                     <tr>
-                        <th style="width: 10px;" class="p-0 pr-4 align-middle">
-                            <div class="form-check-box cta">
-                                <span class="color1">
-                                    <input type="checkbox" id="orderAll">
-                                    <label for="orderAll"></label>
-                                </span>
-                            </div>
-                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.KHACHHANG.TenKH)
                         </th>
@@ -68,16 +60,8 @@
                     @foreach (var item in Model)
                     {
                     <tr>
-                        <td style="width: 10px;" class="p-0 pr-1 align-middle">
-                            <div class="form-check-box cta">
-                                <span class="color1">
-                                    <input type="checkbox" id="order1">
-                                    <label for="order1"></label>
-                                </span>
-                            </div>
-                        </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.KHACHHANG.TenKH)
+                            <a href="@Url.Action("Details","KHACHHANGs", new { id = @Html.DisplayFor(modelItem => item.KHACHHANG.Id) })">@Html.DisplayFor(modelItem => item.KHACHHANG.TenKH)</a>
                         </td>
                         @helper WelcomeMessage(string trangthai)
                         {

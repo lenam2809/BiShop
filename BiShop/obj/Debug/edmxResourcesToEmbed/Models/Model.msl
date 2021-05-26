@@ -118,16 +118,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Reviews">
-      <EntityTypeMapping TypeName="DbBiLuxuryModel.Review">
-        <MappingFragment StoreEntitySet="Review">
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SanPhams">
       <EntityTypeMapping TypeName="DbBiLuxuryModel.SanPham">
         <MappingFragment StoreEntitySet="SanPham">
@@ -173,6 +163,17 @@
           <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
           <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
           <ScalarProperty Name="MaLoaiTin" ColumnName="MaLoaiTin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="DbBiLuxuryModel.Review">
+        <MappingFragment StoreEntitySet="Review">
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+          <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

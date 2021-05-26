@@ -17,11 +17,10 @@ namespace BiShop.Models
     public partial class Review
     {
         [Key]
-        [Column(Order = 1)]
+        public int Id { get; set; }
+
         public int MaKH { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         public int MaSP { get; set; }
 
         [Required(ErrorMessage = "Bạn hãy nhập nội dung")]

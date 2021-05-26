@@ -51,6 +51,7 @@ namespace BiShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public async Task<ActionResult> Create([Bind(Include = "MaSP,TenSP,Gia,ChatLieu,KieuDang,LinkAnh,SoLuong,IsDelete,MaNCC,MaLSP")] SanPham sanPham)
         {
             if (ModelState.IsValid)

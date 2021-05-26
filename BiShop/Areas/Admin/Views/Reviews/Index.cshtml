@@ -6,41 +6,53 @@
 }
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NoiDung)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayTao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KHACHHANG.TenKH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SanPham.TenSP)
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table id="example" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NoiDung)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayTao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KHACHHANG.TenKH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SanPham.TenSP)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoiDung)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayTao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KHACHHANG.TenKH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SanPham.TenSP)
-        </td>
-        <td>
-            <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "NhapSanPhams", new { id1 = item.MaKH, id2 = item.MaSP })"><i class="fas fa-trash-alt"></i></a>
-        </td>
-    </tr>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoiDung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayTao)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details","KHACHHANGs", new { id = @Html.DisplayFor(modelItem => item.KHACHHANG.Id) })">@Html.DisplayFor(modelItem => item.KHACHHANG.TenKH)</a>                        
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details","SanPhams", new { id = @Html.DisplayFor(modelItem => item.SanPham.MaSP) })">@Html.DisplayFor(modelItem => item.SanPham.TenSP)</a>
+                    </td>
+                    <td>
+                        <a title="Xóa" class="btn btn-danger" href="@Url.Action("Delete", "Reviews", new { id = item.Id })"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+@section scripts {
+    <script>
+        $('#example').DataTable();
+    </script>
 }
-
-</table>

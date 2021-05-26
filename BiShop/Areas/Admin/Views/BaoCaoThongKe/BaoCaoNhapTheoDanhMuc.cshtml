@@ -1,0 +1,76 @@
+﻿@model IEnumerable<BiShop.Areas.Admin.Controllers.BaoCaoThongKeController.BCNCategory>
+@{
+    ViewBag.Title = "Báo cáo nhập theo danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="text-right pb-3">
+    @using (Html.BeginForm("Export", "BaoCaoThongKe", FormMethod.Post))
+    {
+        <input type="hidden" name="GridHtml" />
+        <input class="btn btn-outline-theme" type="submit" id="btnSubmit" value="Export" />
+    }
+</div>
+<div id="Grid" class="table-responsive product-list">
+    <table cellpadding="5" cellspacing="0" style="border: 1px solid black;font-size: 9pt;font-family:Arial" class="table table-bordered table-striped mt-0" id="productList">
+        <thead>
+            <tr>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Tên sản phẩm
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Số lượng nhập
+                </th>
+                <th style="background-color: #B8DBFD;border: 1px solid #ccc">
+                    Chi phí nhập
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="width:120px;">
+                    <td style="border: 1px solid #ccc" class="align-middle">
+                        @Html.DisplayFor(modelItem => item.LSP)
+                    </td>
+                    @{
+                        var ChiPhiNhap = string.Format("{0}.000", item.ChiPhiNhap.ToString());
+                    }
+                    <td style="border: 1px solid #ccc" class="align-middle">@Html.DisplayFor(modelItem => item.SoLuongNhap)</td>
+                    <td style="border: 1px solid #ccc" class="align-middle">@ChiPhiNhap&#8363;</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr style="width: 120px;">
+                <td style="border: 1px solid #ccc" class="text-uppercase">
+                    <p class="fw-bold">Tổng</p>
+                </td>
+                @{
+                    var sumChiPhiNhap = string.Format("{0}.000", ViewBag.sumChiPhiNhap.ToString());
+
+                }
+                <td>@ViewBag.sumSoLuongNhap</td>
+                <td>@sumChiPhiNhap&#8363;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>
+<!--Datatable-->
+<script src="~/Areas/assets/js/jquery.dataTables.min.js"></script>
+<script src="~/Areas/assets/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('#productList').DataTable();
+</script>
+
+
+
+

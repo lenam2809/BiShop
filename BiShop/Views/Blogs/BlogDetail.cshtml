@@ -13,7 +13,10 @@
                     <h2>@Model.TieuDe</h2>
                     <ul>
                         <li>@Model.NguoiTao</li>
-                        <li>@Html.DisplayFor(modelItem => Model.NgayTao)</li> 
+                        <li>@Html.DisplayFor(modelItem => Model.NgayTao)</li>
+                        <li>
+                            <i class="fas fa-eye"></i> @Html.DisplayFor(modelItem => Model.LuotXem)
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -43,7 +46,7 @@
                     </div>
                     <!--Nội dung-->
                     @*<div class="blog__details__text">
-                    </div>*@
+                        </div>*@
                     <div class="blog__details__quote">
                         <i class="fa fa-quote-left"></i>
                         <p>
@@ -73,25 +76,51 @@
                         </div>
                     </div>
                     <div class="blog__details__btns">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <a href="" class="blog__details__btns__item">
-                                    <p><span class="arrow_left"></span> Tin trước</p>
-                                    <h5>@Model.TieuDe</h5>
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <a href="" class="blog__details__btns__item blog__details__btns__item--next">
-                                    <p>Tin sau <span class="arrow_right"></span></p>
-                                    <h5>@Model.TieuDe</h5>
-                                </a>
-                            </div>
-                        </div>
+                        @*<div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <a href="" class="blog__details__btns__item">
+                                        <p><span class="arrow_left"></span> Tin trước</p>
+                                        <h5>@Model.TieuDe</h5>
+                                    </a>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <a href="" class="blog__details__btns__item blog__details__btns__item--next">
+                                        <p>Tin sau <span class="arrow_right"></span></p>
+                                        <h5>@Model.TieuDe</h5>
+                                    </a>
+                                </div>
+                            </div>*@
+
+                        @*</div>*@
+
                     </div>
-                    
                 </div>
             </div>
         </div>
-    </div>
 </section>
 <!-- Blog Details Section End -->
+<div class="container">
+    <h3>Có thể bạn muốn đọc!</h3>
+</div>
+<!-- Blog Section Begin -->
+<section class="blog spad">
+   
+    <div class="container">
+        <div class="row">
+            @foreach (var item in ViewBag.ListNew)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="@item.LinkAnh"></div>
+                        <div class="blog__item__text">
+                            <span><img src="~/assets/img/icon/calendar.png" alt=""> @item.NgayTao</span>
+                            <h5>@item.TieuDe</h5>
+                            <a href="@Url.Action("BlogDetail", "Blogs", new { id = item.Id })">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

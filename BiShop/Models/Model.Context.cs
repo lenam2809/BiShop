@@ -36,10 +36,10 @@ namespace BiShop.Models
         public virtual DbSet<LoaiTin> LoaiTins { get; set; }
         public virtual DbSet<NCC> NCCs { get; set; }
         public virtual DbSet<NhapSanPham> NhapSanPhams { get; set; }
-        public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<Ship> Ships { get; set; }
         public virtual DbSet<TinTuc> TinTucs { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 
 
 
-<a title="Thêm mới" class="btn btn-info" style="margin-top: 15px; margin-bottom: 15px;" href="@Url.Action("CreateCT", "NhapSanPhams")"><i class="fas fa-plus-circle"></i> Thêm</a>
+<a title="Thêm mới" class="btn btn-info" style="margin-top: 15px; margin-bottom: 15px;" href="@Url.Action("CreateCT", "NhapSanPhams", new { manhap = @ViewBag.Id })"><i class="fas fa-plus-circle"></i> Thêm</a>
 
 <table class="table">
     <tr>
@@ -23,7 +23,6 @@
         <th>
             @Html.DisplayNameFor(model => model.SanPham.TenSP)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -40,11 +39,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SanPham.TenSP)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
     }

@@ -20,7 +20,7 @@ namespace BiShop.Models
         {
             this.CTNhapSanPhams = new HashSet<CTNhapSanPham>();
         }
-    
+
         [Key]
         [Display(Name = "Mã Đơn Nhập")]
         public int Id { get; set; }
